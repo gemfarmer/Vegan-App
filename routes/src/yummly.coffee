@@ -52,43 +52,46 @@ module.exports = (req, res) ->
 			return
 
 
-	toRender = {
-		title: 'Veganizzm App'
-	}
+	
 
-	#### make async functions pure. avoid making toRender global
-
+	#define tasks for async waterfall
 	tasks = [
 		(cb) ->
+			toRender = {
+				title: 'Veganizzm App'
+			}
 			getMetaData searchMetaParam.cuisine, (err, data) ->
 				toRender.allowedCuisine = data
-				cb()
+				cb(null, toRender)
 		,
-		(cb) ->
+		(toRender, cb) ->
 			getMetaData searchMetaParam.course, (err, data) ->
 				toRender.allowedCourse = data
-				cb()
+				cb(null, toRender)
 		,
-		(cb) ->
+		(toRender, cb) ->
 			getMetaData searchMetaParam.allergy, (err, data) ->
 				toRender.allowedAllergy = data
-				cb()
+				cb(null, toRender)
 		,
-		(cb) ->
+		(toRender, cb) ->
 			getMetaData searchMetaParam.diet, (err, data) ->
 				toRender.allowedDiet = data
-				cb()
+				cb(null, toRender)
 		,
-		(cb) ->
+		(toRender, cb) ->
 			getRecipeData (err, data) ->
 				toRender.q = data.matches
-				cb(data)
+				cb(null, toRender)
 	]
 
-	# use parallel instead of series because none of the tasks rely on one another
-	# added query, changed to series
-	async.series tasks, (data) ->
-		console.log "data", data
-		res.render 'yummly', toRender
+	#waterfall passes data to the next callback in the series
+	async.waterfall tasks, (err, result) ->
+		if err 
+			console.log "you have an error in your waterfall"
+		else
+			console.log "result", result
+
+			res.render 'yummly', result
 
 

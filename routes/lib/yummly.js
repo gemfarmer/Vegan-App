@@ -13,7 +13,7 @@
   mongoose = require('mongoose');
 
   module.exports = function(req, res) {
-    var credentialKey, credentials, getMetaData, getRecipeData, searchMetaParam, searchRecipes, tasks, toRender;
+    var credentialKey, credentials, getMetaData, getRecipeData, searchMetaParam, searchRecipes, tasks;
     searchMetaParam = {
       allergy: 'allergy',
       diet: 'diet',
@@ -47,40 +47,45 @@
         callback(null, yummlyObj);
       });
     };
-    toRender = {
-      title: 'Veganizzm App'
-    };
     tasks = [
       function(cb) {
+        var toRender;
+        toRender = {
+          title: 'Veganizzm App'
+        };
         return getMetaData(searchMetaParam.cuisine, function(err, data) {
           toRender.allowedCuisine = data;
-          return cb();
+          return cb(null, toRender);
         });
-      }, function(cb) {
+      }, function(toRender, cb) {
         return getMetaData(searchMetaParam.course, function(err, data) {
           toRender.allowedCourse = data;
-          return cb();
+          return cb(null, toRender);
         });
-      }, function(cb) {
+      }, function(toRender, cb) {
         return getMetaData(searchMetaParam.allergy, function(err, data) {
           toRender.allowedAllergy = data;
-          return cb();
+          return cb(null, toRender);
         });
-      }, function(cb) {
+      }, function(toRender, cb) {
         return getMetaData(searchMetaParam.diet, function(err, data) {
           toRender.allowedDiet = data;
-          return cb();
+          return cb(null, toRender);
         });
-      }, function(cb) {
+      }, function(toRender, cb) {
         return getRecipeData(function(err, data) {
           toRender.q = data.matches;
-          return cb(data);
+          return cb(null, toRender);
         });
       }
     ];
-    return async.series(tasks, function(data) {
-      console.log("data", data);
-      return res.render('yummly', toRender);
+    return async.waterfall(tasks, function(err, result) {
+      if (err) {
+        return console.log("you have an error in your waterfall");
+      } else {
+        console.log("result", result);
+        return res.render('yummly', result);
+      }
     });
   };
 

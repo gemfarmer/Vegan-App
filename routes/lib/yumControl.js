@@ -22,6 +22,7 @@
 
   module.exports = function(req, res) {
     var credentialKey, credentials, i, j, joinedURL, prepend, queryArray, queryObj, queryPrefix, recipeSearch, requestYummlyUrl, searchMetaParam, submittedInfo, urlExtras, _i, _len, _ref;
+    submittedInfo = req.body;
     searchMetaParam = {
       allergy: 'allergy',
       diet: 'diet',
@@ -33,7 +34,6 @@
       yummlyAppKey: "f801fe2eacf40c98299940e2824de106"
     };
     credentialKey = "_app_id=" + credentials.yummlyAppId + "&_app_key=" + credentials.yummlyAppKey;
-    submittedInfo = req.body;
     console.log("submittedInfo", submittedInfo);
     recipeSearch = new RecipeSearch(submittedInfo);
     recipeSearch.save(function(err, data) {

@@ -16,7 +16,10 @@ RecipeSearch = mongoose.model('RecipeSearch', {
 
 
 module.exports = (req, res) ->
-		
+
+	#get data from client on submit
+	submittedInfo = req.body
+
 
 	searchMetaParam = {
 		allergy: 'allergy'
@@ -31,7 +34,7 @@ module.exports = (req, res) ->
 	}
 	credentialKey = "_app_id=#{credentials.yummlyAppId}&_app_key=#{credentials.yummlyAppKey}"
 
-	submittedInfo = req.body
+	
 	console.log("submittedInfo", submittedInfo)
 	recipeSearch = new RecipeSearch(submittedInfo)
 	recipeSearch.save (err,data) ->
