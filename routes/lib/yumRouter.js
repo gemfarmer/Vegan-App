@@ -6,8 +6,6 @@
 
   User = require('../../models/lib/user');
 
-  console.log("fire yummly.js");
-
   request = require('request');
 
   async = require('async');

@@ -1,7 +1,7 @@
 # routes that handle the basic pages and user accounts
-console.log("fire yummly.coffee!")
-User = require('../../models/lib/user');
-console.log("fire yummly.js")
+console.log("fire yummly!")
+
+User = require('../../models/lib/user')
 request = require 'request'
 async = require 'async'
 mongoose = require 'mongoose'
@@ -18,13 +18,16 @@ module.exports = (req, res) ->
 	}
 	 
 	credentials = {
-		yummlyAppId : '_app_id=48b32423'
-		yummlyAppKey : "&_app_key=f801fe2eacf40c98299940e2824de106"
+		yummlyAppId : '48b32423'
+		yummlyAppKey : "f801fe2eacf40c98299940e2824de106"
 	}
 
+	credentialKey = "_app_id=#{credentials.yummlyAppId}&_app_key=#{credentials.yummlyAppKey}"
+	console.log("credentialKey", credentialKey)
 	getMetaData = (param, callback) ->
 
-		yummlyUrl = 'http://api.yummly.com/v1/api/metadata/'+param+'?'+credentials.yummlyAppId+credentials.yummlyAppKey
+		yummlyUrl = "http://api.yummly.com/v1/api/metadata/#{param}?#{credentialKey}"
+		console.log("yummlyUrl", yummlyUrl)
 		request yummlyUrl, (error, response, body) ->	
 				data = body.replace("set_metadata('"+param+"',", '').replace(');', '')
 				
@@ -36,12 +39,11 @@ module.exports = (req, res) ->
 
 	getRecipeData = (callback) ->
 		# console.log("searchRecipes",searchRecipes())
-		yummlyQUrl = "http://api.yummly.com/v1/api/recipes?"+credentials.yummlyAppId+credentials.yummlyAppKey
+		yummlyQUrl = "http://api.yummly.com/v1/api/recipes?#{credentialKey}"
 		console.log(yummlyQUrl)
 		#Pull Yummly API
 		request yummlyQUrl, (error, response, body) ->
 			# console.log(body);
-			recipeObj = {}
 			yummlyObj = JSON.parse(body)
 			# console.log("YUM", yummlyObj)
 

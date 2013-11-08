@@ -2,11 +2,9 @@
 (function() {
   var User, async, mongoose, request;
 
-  console.log("fire yummly.coffee!");
+  console.log("fire yummly!");
 
   User = require('../../models/lib/user');
-
-  console.log("fire yummly.js");
 
   request = require('request');
 
@@ -15,7 +13,7 @@
   mongoose = require('mongoose');
 
   module.exports = function(req, res) {
-    var credentials, getMetaData, getRecipeData, searchMetaParam, searchRecipes, tasks, toRender;
+    var credentialKey, credentials, getMetaData, getRecipeData, searchMetaParam, searchRecipes, tasks, toRender;
     searchMetaParam = {
       allergy: 'allergy',
       diet: 'diet',
@@ -23,12 +21,15 @@
       course: 'course'
     };
     credentials = {
-      yummlyAppId: '_app_id=48b32423',
-      yummlyAppKey: "&_app_key=f801fe2eacf40c98299940e2824de106"
+      yummlyAppId: '48b32423',
+      yummlyAppKey: "f801fe2eacf40c98299940e2824de106"
     };
+    credentialKey = "_app_id=" + credentials.yummlyAppId + "&_app_key=" + credentials.yummlyAppKey;
+    console.log("credentialKey", credentialKey);
     getMetaData = function(param, callback) {
       var yummlyUrl;
-      yummlyUrl = 'http://api.yummly.com/v1/api/metadata/' + param + '?' + credentials.yummlyAppId + credentials.yummlyAppKey;
+      yummlyUrl = "http://api.yummly.com/v1/api/metadata/" + param + "?" + credentialKey;
+      console.log("yummlyUrl", yummlyUrl);
       return request(yummlyUrl, function(error, response, body) {
         var data;
         data = body.replace("set_metadata('" + param + "',", '').replace(');', '');
@@ -38,11 +39,10 @@
     searchRecipes = function() {};
     getRecipeData = function(callback) {
       var yummlyQUrl;
-      yummlyQUrl = "http://api.yummly.com/v1/api/recipes?" + credentials.yummlyAppId + credentials.yummlyAppKey;
+      yummlyQUrl = "http://api.yummly.com/v1/api/recipes?" + credentialKey;
       console.log(yummlyQUrl);
       return request(yummlyQUrl, function(error, response, body) {
-        var recipeObj, yummlyObj;
-        recipeObj = {};
+        var yummlyObj;
         yummlyObj = JSON.parse(body);
         callback(null, yummlyObj);
       });

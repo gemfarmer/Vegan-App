@@ -50,7 +50,6 @@
 1. CoffeeScript
 2. Charts.js (possibly)
 3. HTML5, CSS3
-4. AngularJS
 
 #### Workflow
 
@@ -64,7 +63,11 @@
 
 ## To DO
 1. Finish Client Side Query set
-	* add searchable q field
+	* Fix query search field so that it accesses api with parameter constraints
+	* move query logic from yummlyControl.coffee to yummly.coffee
+	* isolate relevent data
+		> res.send to main.coffee in intelligable format
+		> append to DOM
 
 2. Find second API to pull
 3. Look for ingredient substitution listing

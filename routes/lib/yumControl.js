@@ -2,9 +2,9 @@
 (function() {
   var RecipeSearch, User, async, mongoose, request;
 
-  User = require('../../models/lib/user');
+  console.log("fire yumControl");
 
-  console.log("fire yummly.js");
+  User = require('../../models/lib/user');
 
   request = require('request');
 
@@ -21,7 +21,7 @@
   });
 
   module.exports = function(req, res) {
-    var credentials, i, j, joinedURL, prepend, queryArray, queryObj, queryPrefix, recipeSearch, requestYummlyUrl, searchMetaParam, submittedInfo, urlExtras, _i, _len, _ref;
+    var credentialKey, credentials, i, j, joinedURL, prepend, queryArray, queryObj, queryPrefix, recipeSearch, requestYummlyUrl, searchMetaParam, submittedInfo, urlExtras, _i, _len, _ref;
     searchMetaParam = {
       allergy: 'allergy',
       diet: 'diet',
@@ -29,9 +29,10 @@
       course: 'course'
     };
     credentials = {
-      yummlyAppId: '_app_id=48b32423',
-      yummlyAppKey: "&_app_key=f801fe2eacf40c98299940e2824de106"
+      yummlyAppId: '48b32423',
+      yummlyAppKey: "f801fe2eacf40c98299940e2824de106"
     };
+    credentialKey = "_app_id=" + credentials.yummlyAppId + "&_app_key=" + credentials.yummlyAppKey;
     submittedInfo = req.body;
     console.log("submittedInfo", submittedInfo);
     recipeSearch = new RecipeSearch(submittedInfo);
@@ -76,7 +77,7 @@
     }
     console.log('urlExtras', urlExtras);
     joinedURL = urlExtras.join("");
-    requestYummlyUrl = "http://api.yummly.com/v1/api/recipes?" + credentials.yummlyAppId + credentials.yummlyAppKey + joinedURL;
+    requestYummlyUrl = "http://api.yummly.com/v1/api/recipes?" + credentialKey + joinedURL;
     console.log(requestYummlyUrl);
     return request(requestYummlyUrl, function(error, response, body) {
       var recipeObj, yummlyObj;

@@ -1,6 +1,7 @@
+console.log("fire yumControl")
 
 User = require('../../models/lib/user');
-console.log("fire yummly.js")
+
 request = require 'request'
 async = require 'async'
 mongoose = require 'mongoose'
@@ -25,10 +26,11 @@ module.exports = (req, res) ->
 	}
 	 
 	credentials = {
-		yummlyAppId : '_app_id=48b32423'
-		yummlyAppKey : "&_app_key=f801fe2eacf40c98299940e2824de106"
+		yummlyAppId : '48b32423'
+		yummlyAppKey : "f801fe2eacf40c98299940e2824de106"
 	}
-	
+	credentialKey = "_app_id=#{credentials.yummlyAppId}&_app_key=#{credentials.yummlyAppKey}"
+
 	submittedInfo = req.body
 	console.log("submittedInfo", submittedInfo)
 	recipeSearch = new RecipeSearch(submittedInfo)
@@ -79,7 +81,7 @@ module.exports = (req, res) ->
 	console.log('urlExtras',urlExtras)
 	joinedURL = urlExtras.join("")
 
-	requestYummlyUrl = "http://api.yummly.com/v1/api/recipes?"+credentials.yummlyAppId+credentials.yummlyAppKey+joinedURL
+	requestYummlyUrl = "http://api.yummly.com/v1/api/recipes?#{credentialKey}#{joinedURL}"
 	console.log(requestYummlyUrl)
 	#Pull Yummly API
 	request requestYummlyUrl, (error, response, body) ->
