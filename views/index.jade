@@ -1,0 +1,65 @@
+extends layout
+
+block content
+	div.navbar.navbar-fixed-top
+		div.navbar-inner
+			div.container-fluid
+				button.btn.btn-navbar(type='button', data-toggle='collapse', data-target='.nav-collapse')
+					span.icon-bar
+					span.icon-bar
+					span.icon-bar
+				a.brand(href='/') #{config.name}
+				div.pull-right
+					ul.nav
+						if user
+							li.dropdown
+								a.dropdown-toggle(href='#', data-toggle='dropdown')
+									| Hi #{user.name.first}!&nbsp;
+									b.caret
+								ul.dropdown-menu
+									//-li
+										a(href='/needmorestuff')
+									li
+										a(href='/logout') Log Out
+									if user.role==='admin'
+										li
+											a(href='/admin') Admin Section
+						else
+							li.dropdown
+								a.dropdown-toggle(href='/login') Login
+									b.caret
+
+				div.nav-collapse.collapse
+					ul.nav
+						each link in links
+							- var isActive = (link.path == current ? 'active' : '')
+							li(class = '#{isActive}')
+								a(href='#{link.path}')= link.label
+				///.nav-collapse
+						
+	div.container-fluid   
+		block afterNav
+			div.row-fluid
+				h1 Welcome to #{config.name}!
+			if user
+				div.row-fluid
+					h4 You should think about putting something here.
+					h5 Current User: #{user.username}
+				div.button
+					a(href='/logout') Logout
+
+
+			else
+				div.row-fluid
+					h4 This is an app to find and share recipes and learn about vegan substitutes with omniverous appeal
+					button#veganButton.btn.btn-inverse.btn-large Scrape Veganizzm.com
+					div#veganRepo
+
+	//- modals and other hidden things
+
+	block modals
+
+	block pageScripts
+		script(src='/js/lib/veganizzm.js')
+
+

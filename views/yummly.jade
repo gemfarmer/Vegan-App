@@ -1,0 +1,52 @@
+extends index
+
+block afterNav
+	div YUM YUM YUMMLY!
+	h1= title
+	p A tool for 
+		a(href="http://veganizzm.com/") Veganizzm.com
+	form#recipe-form
+
+		select.chzn-select(multiple="true", name="allowedCuisine", style="width: 500px; hieght: 40px;", data-placeholder="Select cuisine...")
+			for item in allowedCuisine
+				option(value='#{item.searchValue}') #{item.description}
+			
+		br
+		select.chzn-select(multiple="true", name="allowedCourse", style="width: 500px; hieght: 40px;", data-placeholder="Select courses...")
+			for item in allowedCourse
+				option(value='#{item.searchValue}') #{item.description}
+		br
+		select.chzn-select(multiple="true", name="allowedAllergy", style="width: 500px; hieght: 40px;", data-placeholder="Select allergy...")
+			- for (var i = 0; i < allowedAllergy.length; ++i) {
+				option(value='#{allowedAllergy[i].searchValue}') #{allowedAllergy[i].shortDescription}
+				
+			- }
+		br
+		select.chzn-select(multiple="true", name="allowedDiet", style="width: 500px; hieght: 40px;", data-placeholder="Select diet...")
+			- for (var i = 0; i < allowedDiet.length; ++i) {
+				option(value='#{allowedDiet[i].searchValue}') #{allowedDiet[i].shortDescription}
+				
+			- }
+		br
+		//- input(name="q", style="width: 500px; hieght: 40px;", data-placeholder="Select recipe...")
+		//- br
+		select.chzn-select.querySearch(name="q", style="width: 500px; height: 40px;", data-placeholder="Select recipe...")
+			- for (var i = 0; i < q.length; ++i) {
+				//- option(value='#{q[i][matches][recipeName]}') #{q[i][matches][recipeName]}
+				option.querySearch(value='#{q[i].recipeName}') #{q[i].recipeName}
+				
+			- }
+		br
+		button.submit-btn.btn.btn-primary(type="submit") Submit Data
+
+
+
+
+block modals
+	//- this is where you can add hidden divs and other elements that you'll want to display
+		dynamically on the page. 
+
+block pageScripts
+	script(src="js/lib/main.js")
+	//- This is where any page specific scripts go   
+		Keep in mind that these are included in every page already:

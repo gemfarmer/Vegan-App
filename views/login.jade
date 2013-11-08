@@ -1,0 +1,53 @@
+extends index
+
+
+block metas
+   //- meta(name='description', content='This is an example description!')
+      Here you can dynamically control the meta tags for each page
+      This is especially useful for social networking sites like facebook that grab information
+      from these meta tags to determine how links to your site appear on their site
+
+      Keep in mind that index is providing these for each page already:
+      meta(name='viewport', content='width=device-width, initial-scale=1.0')
+      meta(name='title', content='#{title}')
+         
+
+block afterNav
+
+   div.page-header
+      h2 Log In to #{config.name}
+
+   //- TODO: figure out how to get access to passport error messages
+   //-if message[0]
+      div.row
+         div.span7
+            div.alert.alert-error
+               button.close(
+                  type='button'
+                  data-dismiss='alert') x
+               h4 Login Error!
+               span #{message[0]}
+
+   div
+      form.form-horizontal(action='/login', method='POST')
+         div.control-group
+            label.control-label(for='username') Username
+            div.controls
+               input(type='text', name='username', placeholder='username', autofocus)
+         div.control-group
+            label.control-label(for='password') Password
+            div.controls
+               input(type='password', name='password', placeholder='password')
+         div.control-group
+            div.controls
+               button.btn.btn-primary(type='submit', value='Log Me In!') Login
+               |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+               a.btn.btn-inverse(href='/register') Register
+
+block modals
+   //- this is where you can add hidden divs and other elements that you'll want to display
+      dynamically on the page. 
+
+block pageScripts
+   //- This is where any page specific scripts go   
+      Keep in mind that these are included in every page already:
