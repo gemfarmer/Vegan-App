@@ -4,40 +4,42 @@ console.log("fire main.js")
 socket = io.connect();
 
 $ ->
-	console.log("fire jQ")
+	console.log 'fire jQ'
 	socket.on 'connect', () ->
-		$(document).on 'keyup', '.chosen-search input', (e) ->
-			e.preventDefault()
-				
-			val = $(this).val()
-			dataToYummly = {}
+		console.log("fire socket")
+			
+	$(document).on 'keyup', '.chosen-search input', (e) ->
+		e.preventDefault()
+			
+		val = $(this).val()
+		dataToYummly = {}
 
-			dataToYummly.q = val
-			console.log("dataToYummly:",dataToYummly)
+		dataToYummly.q = val
+		console.log("dataToYummly:",dataToYummly)
 
-			console.log(val)
-			$.get '/yummly', dataToYummly, (data) ->
-				console.log("data:", data)
-				
-				# send data to yummly.coffee
-				# res.send(data)
+		console.log(val)
+		socket.emit('yumKeyUp', dataToYummly)
+		# $.get '/yummly', dataToYummly, (data) ->
+		# 	console.log("data:", data)
+	
 
-			socket.on 'yummly', () ->
+	
+			# send data to yummly.coffee
+			# res.send(data)
 
+	$(".chzn-select").chosen()
 
-		$(".chzn-select").chosen()
+	$('#recipe-form').on 'change', (e) ->
+		e.preventDefault()
+		# console.log($(this))
 
-		$('#recipe-form').on 'change', (e) ->
-			e.preventDefault()
-			# console.log($(this))
+		info = $(this).serialize()
 
-			info = $(this).serialize()
-
-			console.log("info",info)
-
-			$.get '/yummly', info, (data) ->
-				# console.log(data)
-				for i of data.matches
-					recipe = data.matches[i]
-					console.log(recipe)
-				
+		console.log("info",info)
+		socket.emit 'yumForm', info
+		# $.get '/yummly', info, (data) ->
+		# 	# console.log(data)
+		# 	for i of data.matches
+		# 		recipe = data.matches[i]
+		# 		console.log(recipe)
+			

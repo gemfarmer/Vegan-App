@@ -14,7 +14,6 @@
 
   module.exports = {
     yummly: require('./yummly'),
-    yumControl: require('./yumControl'),
     substitutes: require('./substitution')
   };
 

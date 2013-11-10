@@ -7,37 +7,27 @@
   socket = io.connect();
 
   $(function() {
-    console.log("fire jQ");
-    return socket.on('connect', function() {
-      $(document).on('keyup', '.chosen-search input', function(e) {
-        var dataToYummly, val;
-        e.preventDefault();
-        val = $(this).val();
-        dataToYummly = {};
-        dataToYummly.q = val;
-        console.log("dataToYummly:", dataToYummly);
-        console.log(val);
-        $.get('/yummly', dataToYummly, function(data) {
-          return console.log("data:", data);
-        });
-        return socket.on('yummly', function() {});
-      });
-      $(".chzn-select").chosen();
-      return $('#recipe-form').on('change', function(e) {
-        var info;
-        e.preventDefault();
-        info = $(this).serialize();
-        console.log("info", info);
-        return $.get('/yummly', info, function(data) {
-          var i, recipe, _results;
-          _results = [];
-          for (i in data.matches) {
-            recipe = data.matches[i];
-            _results.push(console.log(recipe));
-          }
-          return _results;
-        });
-      });
+    console.log('fire jQ');
+    socket.on('connect', function() {
+      return console.log("fire socket");
+    });
+    $(document).on('keyup', '.chosen-search input', function(e) {
+      var dataToYummly, val;
+      e.preventDefault();
+      val = $(this).val();
+      dataToYummly = {};
+      dataToYummly.q = val;
+      console.log("dataToYummly:", dataToYummly);
+      console.log(val);
+      return socket.emit('yumKeyUp', dataToYummly);
+    });
+    $(".chzn-select").chosen();
+    return $('#recipe-form').on('change', function(e) {
+      var info;
+      e.preventDefault();
+      info = $(this).serialize();
+      console.log("info", info);
+      return socket.emit('yumForm', info);
     });
   });
 

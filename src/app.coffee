@@ -8,7 +8,7 @@ mongoStore = require('connect-mongo')(express);
 moment = require('moment');
 request = require('request')
 async = require 'async'
-socketio = require('socket.io');
+# socketio = require('socket.io');
 http = require('http');
 app = module.exports = express();
 global.app = app;
@@ -21,8 +21,9 @@ app.locals.config = config;
 # Create the server
 server = http.createServer(app);
 
-#Start the web socket server
-io = socketio.listen(server);
+module.exports = {
+	server: server
+}
 
 
 # connect to the database
@@ -78,7 +79,7 @@ app.configure 'production', () ->
 	return
 
 # load the router
-require(__dirname+'/routes')(app, request, io);
+require(__dirname+'/routes')(app, request);
 
 port = config.port;
 server.listen port, () ->

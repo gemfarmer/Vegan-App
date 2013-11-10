@@ -6,9 +6,35 @@ request = require 'request'
 async = require 'async'
 mongoose = require 'mongoose'
 
+RecipeSearch = mongoose.model('RecipeSearch', {
+	q: String
+	allowedCuisine: String
+	allowedCourse: String
+	allowedAllergy: String
+	allowedDiet: String
+})
+
+#include server module from app.js
+server = require('./../../lib/app.js').server
+
+#require socket.io module
+socketio = require 'socket.io'
+
+#Start the web socket server
+
+
+io = socketio.listen(server);
 
 
 module.exports = (req, res) ->
+	io.sockets.on 'connection', (socket) ->
+		console.log("SOCKET CONNECTED")
+		socket.on 'yumKeyUp', (query) ->
+			console.log("keyupQuery::::::", query)
+
+		socket.on 'yumForm', (formData) ->
+			console.log("formData:", formData)
+	console.log("howdy")
 	# get query from search field
 	console.log("req.query:",req.query)
 	queryOnKeyup = req.query

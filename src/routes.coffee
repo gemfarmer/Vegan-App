@@ -23,6 +23,7 @@ isAdmin = (req, res, next) ->
 
 # routes
 module.exports = (app, request) ->
+	# io.sockets.on 'connection', (socket) ->
 	app.get('/', home.index);
 	app.get('/login', home.login);
 	app.post '/login',
@@ -39,8 +40,6 @@ module.exports = (app, request) ->
 	app.get('/profile', restrict, home.profile);
 	app.get('/veganizzm', home.requestVeganizzm)
 	app.get('/yummly', yumRoute.yummly)
-	app.get('/submitrecipe', yumRoute.yumControl)
 	# app.get('/substitution', yumRoute.substitution)
 	app.get('/substitutes', yumRoute.substitutes)
-	io.sockets.on 'connection', yumRoute.yummly
 
