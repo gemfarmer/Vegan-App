@@ -1,26 +1,43 @@
 console.log("fire main.js")
 
-$ -> 
+#connect client sockets
+socket = io.connect();
+
+$ ->
 	console.log("fire jQ")
-	
-	# $('.querySearch').on 'keyup', (e) ->
-	# 	val = $(this).val()
-	# 	$.get '/searchRecipes', val, (data) ->
-	# 		console.log("hey", data)
+	socket.on 'connect', () ->
+		$(document).on 'keyup', '.chosen-search input', (e) ->
+			e.preventDefault()
+				
+			val = $(this).val()
+			dataToYummly = {}
 
-	$(".chzn-select").chosen()
+			dataToYummly.q = val
+			console.log("dataToYummly:",dataToYummly)
 
-	$('#recipe-form').on 'submit', (e) ->
-		e.preventDefault()
-		# console.log($(this))
+			console.log(val)
+			$.get '/yummly', dataToYummly, (data) ->
+				console.log("data:", data)
+				
+				# send data to yummly.coffee
+				# res.send(data)
 
-		info = $(this).serialize()
+			socket.on 'yummly', () ->
 
-		console.log("info",info)
 
-		$.get '/submitrecipe', info, (data) ->
-			console.log(data)
-			for i of data.matches
-				recipe = data.matches[i]
-				console.log(recipe)
-			
+		$(".chzn-select").chosen()
+
+		$('#recipe-form').on 'change', (e) ->
+			e.preventDefault()
+			# console.log($(this))
+
+			info = $(this).serialize()
+
+			console.log("info",info)
+
+			$.get '/yummly', info, (data) ->
+				# console.log(data)
+				for i of data.matches
+					recipe = data.matches[i]
+					console.log(recipe)
+				

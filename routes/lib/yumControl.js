@@ -23,6 +23,7 @@
   module.exports = function(req, res) {
     var credentialKey, credentials, i, j, joinedURL, prepend, queryArray, queryObj, queryPrefix, recipeSearch, requestYummlyUrl, searchMetaParam, submittedInfo, urlExtras, _i, _len, _ref;
     submittedInfo = req.body;
+    console.log(submittedInfo);
     searchMetaParam = {
       allergy: 'allergy',
       diet: 'diet',

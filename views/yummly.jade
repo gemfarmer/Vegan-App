@@ -17,25 +17,21 @@ block afterNav
 				option(value='#{item.searchValue}') #{item.description}
 		br
 		select.chzn-select(multiple="true", name="allowedAllergy", style="width: 500px; hieght: 40px;", data-placeholder="Select allergy...")
-			- for (var i = 0; i < allowedAllergy.length; ++i) {
-				option(value='#{allowedAllergy[i].searchValue}') #{allowedAllergy[i].shortDescription}
-				
-			- }
+			for item in allowedAllergy
+				option(value='#{item.searchValue}') #{item.shortDescription}
+	
 		br
 		select.chzn-select(multiple="true", name="allowedDiet", style="width: 500px; hieght: 40px;", data-placeholder="Select diet...")
-			- for (var i = 0; i < allowedDiet.length; ++i) {
-				option(value='#{allowedDiet[i].searchValue}') #{allowedDiet[i].shortDescription}
-				
-			- }
+			for item in allowedDiet
+				option(value='#{item.searchValue}') #{item.shortDescription}
+	
 		br
 		//- input(name="q", style="width: 500px; hieght: 40px;", data-placeholder="Select recipe...")
 		//- br
 		select.chzn-select.querySearch(name="q", style="width: 500px; height: 40px;", data-placeholder="Select recipe...")
-			- for (var i = 0; i < q.length; ++i) {
-				//- option(value='#{q[i][matches][recipeName]}') #{q[i][matches][recipeName]}
-				option.querySearch(value='#{q[i].recipeName}') #{q[i].recipeName}
-				
-			- }
+			if q 
+				for item in q
+					option.querySearch(value='#{item.recipeName}') #{item.recipeName}	
 		br
 		button.submit-btn.btn.btn-primary(type="submit") Submit Data
 

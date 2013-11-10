@@ -2,7 +2,7 @@
 (function() {
   var User, async, mongoose, request;
 
-  console.log("fire yumRouter!");
+  console.log("fire substitution!");
 
   User = require('../../models/lib/user');
 
@@ -12,10 +12,6 @@
 
   mongoose = require('mongoose');
 
-  module.exports = {
-    yummly: require('./yummly'),
-    yumControl: require('./yumControl'),
-    substitutes: require('./substitution')
-  };
+  module.exports = function(req, res) {};
 
 }).call(this);

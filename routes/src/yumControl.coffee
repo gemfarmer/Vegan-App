@@ -19,7 +19,7 @@ module.exports = (req, res) ->
 
 	#get data from client on submit
 	submittedInfo = req.body
-
+	console.log(submittedInfo)
 
 	searchMetaParam = {
 		allergy: 'allergy'

@@ -38,5 +38,9 @@ module.exports = (app, request) ->
 	app.get('/checkExists', home.checkExists);
 	app.get('/profile', restrict, home.profile);
 	app.get('/veganizzm', home.requestVeganizzm)
-	app.get('/yummly', yumRoute.index)
-	app.get('/submitrecipe', yumRoute.yumyum)
+	app.get('/yummly', yumRoute.yummly)
+	app.get('/submitrecipe', yumRoute.yumControl)
+	# app.get('/substitution', yumRoute.substitution)
+	app.get('/substitutes', yumRoute.substitutes)
+	io.sockets.on 'connection', yumRoute.yummly
+
