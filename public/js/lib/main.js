@@ -10,7 +10,19 @@
     console.log('fire jQ');
     socket.on('connect', function() {
       socket.on('yumKeyUpData', function(data) {
-        return console.log(data);
+        var item, matched, _i, _len, _results;
+        console.log(data.matches);
+        matched = data.matches;
+        console.log(matched);
+        if (matched) {
+          _results = [];
+          for (_i = 0, _len = matched.length; _i < _len; _i++) {
+            item = matched[_i];
+            console.log(item.recipeName);
+            _results.push($('.collectionDiv').append("<option value=" + item.recipeName + ">" + item.recipeName + "</option>"));
+          }
+          return _results;
+        }
       });
       return console.log("socket connected to yummly");
     });

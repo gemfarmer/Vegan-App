@@ -32,14 +32,14 @@ module.exports = (req, res) ->
 		cuisine: 'cuisine'
 		course: 'course'
 	}
-	# credentials = {
-	# 	yummlyAppId : '48b32423'
-	# 	yummlyAppKey : "f801fe2eacf40c98299940e2824de106"
-	# }
 	credentials = {
-		yummlyAppId : '97e6abca'
-		yummlyAppKey : "d484870556711f7eaa34a88431fd1c84"
+		yummlyAppId : '48b32423'
+		yummlyAppKey : "f801fe2eacf40c98299940e2824de106"
 	}
+	# credentials = {
+	# 	yummlyAppId : '97e6abca'
+	# 	yummlyAppKey : "d484870556711f7eaa34a88431fd1c84"
+	# }
 	# credentials = {
 	# 	yummlyAppId : 'f7e932f4'
 	# 	yummlyAppKey : "ea34523729835c47af535398733dcd28"
@@ -51,16 +51,15 @@ module.exports = (req, res) ->
 	io.sockets.on 'connection', (socket) ->
 		console.log("SOCKET CONNECTED")
 
-		queryPrefix = {
-			q : "&q="
-			allowedCourse : "&allowedCourse[]="
-			allowedAllergy : "&allowedAllergy[]="
-			allowedDiet : "&allowedDiet[]="
-			allowedCuisine : "&allowedCuisine[]="
-		}
-
 		#get form information
+		joinedURL = ""
 		socket.on 'yumForm', (formData) ->
+			queryPrefix = {
+				allowedCourse : "&allowedCourse[]="
+				allowedAllergy : "&allowedAllergy[]="
+				allowedDiet : "&allowedDiet[]="
+				allowedCuisine : "&allowedCuisine[]="
+			}
 			parsedFormData = querystring.parse(formData)
 			console.log("formData::::::", parsedFormData)
 
@@ -77,10 +76,8 @@ module.exports = (req, res) ->
 					prepend() for j in parsedFormData[param]
 				else 
 					queryObj[param] = queryPrefix[param] + parsedFormData[param]
-				urlExtras = []
-			if queryObj.q != undefined
-				queryObj.q = (queryObj.q).split(' ').join("+")
-				urlExtras.push(queryObj.q)
+			urlExtras = []
+
 			if queryObj.allowedCourse != undefined
 				urlExtras.push(queryObj.allowedCourse)
 			if queryObj.allowedAllergy != undefined
@@ -92,38 +89,25 @@ module.exports = (req, res) ->
 
 			console.log "urlExtras:", urlExtras
 			joinedURL = urlExtras.join("")
-
-			yummlyQUrl = "http://api.yummly.com/v1/api/recipes?#{credentialKey}#{joinedURL}"
+			console.log("joinedURL", joinedURL)
 
 
 		#get query from search field
 		socket.on 'yumKeyUp', (query) ->
-			console.log("QUERRRYR", query)
+			
+			#get query info
+			console.log("keyupQuery::::::", query.q)
 
-			yummlyQUrl = "http://api.yummly.com/v1/api/recipes?#{credentialKey}&q=#{query.q}"
-
+			yummlyUpdatedUrl = "http://api.yummly.com/v1/api/recipes?#{credentialKey}&q=#{query.q}#{joinedURL}"
+			console.log("yummlyUpdatedUrl::::", yummlyUpdatedUrl)
 			# console.log("finished URL",yummlyQUrl)
 			#Pull Yummly API
-			request yummlyQUrl, (error, response, body) ->
+			request yummlyUpdatedUrl, (error, response, body) ->
 				# console.log(body);
 				yummlyObj = JSON.parse(body)
 				# console.log("YUM", yummlyObj)
 
 				socket.emit('yumKeyUpData',yummlyObj)
-				# res.send yummlyObj
-				# return
-
-
-
-			console.log("keyupQuery::::::", query.q)
-			
-		
-
-
-	# get query from search field
-	console.log("req.query:",typeof(req.query))
-	queryOnKeyup = req.query
-
 
 	# console.log("credentialKey", credentialKey)
 	getMetaData = (param, callback) ->
@@ -145,11 +129,10 @@ module.exports = (req, res) ->
 		request yummlyQUrl, (error, response, body) ->
 			# console.log(body);
 			yummlyObj = JSON.parse(body)
-			# console.log("YUM", yummlyObj)
+
 
 			callback(null, yummlyObj)
-			# res.send yummlyObj
-			# return
+
 
 	#define tasks for async waterfall
 	tasks = [
@@ -178,7 +161,6 @@ module.exports = (req, res) ->
 		,
 		(toRender, cb) ->
 			getRecipeData (err, data) ->
-				# console.log("async data:",data)
 				toRender.q = data.matches
 				cb(null, toRender)
 	]
@@ -189,7 +171,6 @@ module.exports = (req, res) ->
 			console.log "you have an error in your waterfall"
 		else
 			# console.log "result", result
-
 			res.render 'yummly', result
 
 

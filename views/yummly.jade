@@ -26,14 +26,14 @@ block afterNav
 				option(value='#{item.searchValue}') #{item.shortDescription}
 	
 		br
-		select.chzn-select.querySearch(name="q", style="width: 500px; height: 40px;", data-placeholder="Select recipe...")
+		select.chzn-select.querySearchSelect(name="q", style="width: 500px; height: 40px;", data-placeholder="Select recipe...")
 			if q 
 				for item in q
-					option.querySearch(value='#{item.recipeName}') #{item.recipeName}	
+					option.querySearchOptions(value='#{item.recipeName}') #{item.recipeName}	
 		br
 		button.submit-btn.btn.btn-primary(type="submit") Submit Data
 
-
+		div.collectionDiv
 
 
 block modals

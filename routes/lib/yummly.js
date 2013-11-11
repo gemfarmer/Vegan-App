@@ -29,7 +29,7 @@
   io = socketio.listen(server);
 
   module.exports = function(req, res) {
-    var credentialKey, credentials, getMetaData, getRecipeData, queryOnKeyup, searchMetaParam, tasks;
+    var credentialKey, credentials, getMetaData, getRecipeData, searchMetaParam, tasks;
     searchMetaParam = {
       allergy: 'allergy',
       diet: 'diet',
@@ -37,22 +37,22 @@
       course: 'course'
     };
     credentials = {
-      yummlyAppId: '97e6abca',
-      yummlyAppKey: "d484870556711f7eaa34a88431fd1c84"
+      yummlyAppId: '48b32423',
+      yummlyAppKey: "f801fe2eacf40c98299940e2824de106"
     };
     credentialKey = "_app_id=" + credentials.yummlyAppId + "&_app_key=" + credentials.yummlyAppKey;
     io.sockets.on('connection', function(socket) {
-      var queryPrefix;
+      var joinedURL;
       console.log("SOCKET CONNECTED");
-      queryPrefix = {
-        q: "&q=",
-        allowedCourse: "&allowedCourse[]=",
-        allowedAllergy: "&allowedAllergy[]=",
-        allowedDiet: "&allowedDiet[]=",
-        allowedCuisine: "&allowedCuisine[]="
-      };
+      joinedURL = "";
       socket.on('yumForm', function(formData) {
-        var j, joinedURL, param, parsedFormData, prepend, queryArray, queryObj, urlExtras, yummlyQUrl, _i, _len, _ref;
+        var j, param, parsedFormData, prepend, queryArray, queryObj, queryPrefix, urlExtras, _i, _len, _ref;
+        queryPrefix = {
+          allowedCourse: "&allowedCourse[]=",
+          allowedAllergy: "&allowedAllergy[]=",
+          allowedDiet: "&allowedDiet[]=",
+          allowedCuisine: "&allowedCuisine[]="
+        };
         parsedFormData = querystring.parse(formData);
         console.log("formData::::::", parsedFormData);
         queryObj = {};
@@ -71,12 +71,8 @@
           } else {
             queryObj[param] = queryPrefix[param] + parsedFormData[param];
           }
-          urlExtras = [];
         }
-        if (queryObj.q !== void 0) {
-          queryObj.q = queryObj.q.split(' ').join("+");
-          urlExtras.push(queryObj.q);
-        }
+        urlExtras = [];
         if (queryObj.allowedCourse !== void 0) {
           urlExtras.push(queryObj.allowedCourse);
         }
@@ -91,22 +87,20 @@
         }
         console.log("urlExtras:", urlExtras);
         joinedURL = urlExtras.join("");
-        return yummlyQUrl = "http://api.yummly.com/v1/api/recipes?" + credentialKey + joinedURL;
+        return console.log("joinedURL", joinedURL);
       });
       return socket.on('yumKeyUp', function(query) {
-        var yummlyQUrl;
-        console.log("QUERRRYR", query);
-        yummlyQUrl = "http://api.yummly.com/v1/api/recipes?" + credentialKey + "&q=" + query.q;
-        request(yummlyQUrl, function(error, response, body) {
+        var yummlyUpdatedUrl;
+        console.log("keyupQuery::::::", query.q);
+        yummlyUpdatedUrl = "http://api.yummly.com/v1/api/recipes?" + credentialKey + "&q=" + query.q + joinedURL;
+        console.log("yummlyUpdatedUrl::::", yummlyUpdatedUrl);
+        return request(yummlyUpdatedUrl, function(error, response, body) {
           var yummlyObj;
           yummlyObj = JSON.parse(body);
           return socket.emit('yumKeyUpData', yummlyObj);
         });
-        return console.log("keyupQuery::::::", query.q);
       });
     });
-    console.log("req.query:", typeof req.query);
-    queryOnKeyup = req.query;
     getMetaData = function(param, callback) {
       var yummlyUrl;
       yummlyUrl = "http://api.yummly.com/v1/api/metadata/" + param + "?" + credentialKey;
