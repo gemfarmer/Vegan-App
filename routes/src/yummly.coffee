@@ -1,10 +1,10 @@
-# routes that handle the basic pages and user accounts
 console.log("fire yummly!")
 
 User = require('../../models/lib/user')
 request = require 'request'
 async = require 'async'
 mongoose = require 'mongoose'
+querystring = require('querystring')
 
 RecipeSearch = mongoose.model('RecipeSearch', {
 	q: String
@@ -21,24 +21,10 @@ server = require('./../../lib/app.js').server
 socketio = require 'socket.io'
 
 #Start the web socket server
-
-
 io = socketio.listen(server);
 
 
 module.exports = (req, res) ->
-	io.sockets.on 'connection', (socket) ->
-		console.log("SOCKET CONNECTED")
-		socket.on 'yumKeyUp', (query) ->
-			console.log("keyupQuery::::::", query)
-
-		socket.on 'yumForm', (formData) ->
-			console.log("formData:", formData)
-	console.log("howdy")
-	# get query from search field
-	console.log("req.query:",req.query)
-	queryOnKeyup = req.query
-
 
 	searchMetaParam = {
 		allergy: 'allergy'
@@ -46,22 +32,99 @@ module.exports = (req, res) ->
 		cuisine: 'cuisine'
 		course: 'course'
 	}
-	
 	# credentials = {
 	# 	yummlyAppId : '48b32423'
 	# 	yummlyAppKey : "f801fe2eacf40c98299940e2824de106"
 	# }
-	# credentials = {
-	# 	yummlyAppId : '97e6abca'
-	# 	yummlyAppKey : "d484870556711f7eaa34a88431fd1c84"
-	# }
 	credentials = {
-		yummlyAppId : 'f7e932f4'
-		yummlyAppKey : "ea34523729835c47af535398733dcd28"
+		yummlyAppId : '97e6abca'
+		yummlyAppKey : "d484870556711f7eaa34a88431fd1c84"
 	}
+	# credentials = {
+	# 	yummlyAppId : 'f7e932f4'
+	# 	yummlyAppKey : "ea34523729835c47af535398733dcd28"
+	# }
 	
-
 	credentialKey = "_app_id=#{credentials.yummlyAppId}&_app_key=#{credentials.yummlyAppKey}"
+
+
+	io.sockets.on 'connection', (socket) ->
+		console.log("SOCKET CONNECTED")
+
+		queryPrefix = {
+			q : "&q="
+			allowedCourse : "&allowedCourse[]="
+			allowedAllergy : "&allowedAllergy[]="
+			allowedDiet : "&allowedDiet[]="
+			allowedCuisine : "&allowedCuisine[]="
+		}
+
+		#get form information
+		socket.on 'yumForm', (formData) ->
+			parsedFormData = querystring.parse(formData)
+			console.log("formData::::::", parsedFormData)
+
+			queryObj = {}
+			for param of parsedFormData
+				if typeof(parsedFormData[param]) == "object"
+					# console.log("INSTANCE")
+					queryArray = []
+					prepend = () ->
+						
+						queryArray.push(queryPrefix[param] + j)
+						queryObj[param] = queryArray.join("")
+						# console.log("QUERY ARRAY",queryArray)
+					prepend() for j in parsedFormData[param]
+				else 
+					queryObj[param] = queryPrefix[param] + parsedFormData[param]
+				urlExtras = []
+			if queryObj.q != undefined
+				queryObj.q = (queryObj.q).split(' ').join("+")
+				urlExtras.push(queryObj.q)
+			if queryObj.allowedCourse != undefined
+				urlExtras.push(queryObj.allowedCourse)
+			if queryObj.allowedAllergy != undefined
+				urlExtras.push(queryObj.allowedAllergy)
+			if queryObj.allowedDiet != undefined
+				urlExtras.push(queryObj.allowedDiet)
+			if queryObj.allowedCuisine != undefined
+				urlExtras.push(queryObj.allowedCuisine)
+
+			console.log "urlExtras:", urlExtras
+			joinedURL = urlExtras.join("")
+
+			yummlyQUrl = "http://api.yummly.com/v1/api/recipes?#{credentialKey}#{joinedURL}"
+
+
+		#get query from search field
+		socket.on 'yumKeyUp', (query) ->
+			console.log("QUERRRYR", query)
+
+			yummlyQUrl = "http://api.yummly.com/v1/api/recipes?#{credentialKey}&q=#{query.q}"
+
+			# console.log("finished URL",yummlyQUrl)
+			#Pull Yummly API
+			request yummlyQUrl, (error, response, body) ->
+				# console.log(body);
+				yummlyObj = JSON.parse(body)
+				# console.log("YUM", yummlyObj)
+
+				socket.emit('yumKeyUpData',yummlyObj)
+				# res.send yummlyObj
+				# return
+
+
+
+			console.log("keyupQuery::::::", query.q)
+			
+		
+
+
+	# get query from search field
+	console.log("req.query:",typeof(req.query))
+	queryOnKeyup = req.query
+
+
 	# console.log("credentialKey", credentialKey)
 	getMetaData = (param, callback) ->
 
@@ -74,57 +137,10 @@ module.exports = (req, res) ->
 	
 
 	getRecipeData = (callback) ->
-		# console.log("searchRecipes",searchRecipes())
-		queryPrefix = {
-			q : "&q="
-			allowedCourse : "&allowedCourse[]="
-			allowedAllergy : "&allowedAllergy[]="
-			allowedDiet : "&allowedDiet[]="
-			allowedCuisine : "&allowedCuisine[]="
-		}
-		# for param of queryOnKeyup
-		# 	if queryOnKeyp[param] == undefined and 
 
-		queryObj = {}
-		for param of queryOnKeyup
-			if typeof(queryOnKeyup[param]) == "object"
-				# console.log("INSTANCE")
-				queryArray = []
-				prepend = () ->
-					
-					queryArray.push(queryPrefix[param] + j)
-					queryObj[param] = queryArray.join("")
-					# console.log("QUERY ARRAY",queryArray)
-				prepend() for j in queryOnKeyup[param]
-			else 
-				queryObj[param] = queryPrefix[param] + queryOnKeyup[param]
+		yummlyQUrl = "http://api.yummly.com/v1/api/recipes?#{credentialKey}"
 
-		urlExtras = []
-		
-
-		if queryObj.q != undefined
-			queryObj.q = (queryObj.q).split(' ').join("+")
-			urlExtras.push(queryObj.q)
-		if queryObj.allowedCourse != undefined
-			urlExtras.push(queryObj.allowedCourse)
-		if queryObj.allowedAllergy != undefined
-			urlExtras.push(queryObj.allowedAllergy)
-		if queryObj.allowedDiet != undefined
-			urlExtras.push(queryObj.allowedDiet)
-		if queryObj.allowedCuisine != undefined
-			urlExtras.push(queryObj.allowedCuisine)
-
-		console.log "urlExtras:", urlExtras
-
-
-		joinedURL = urlExtras.join("")
-		# if queryOnKeyup.q == undefined
-		# 	yummlyQUrl = "http://api.yummly.com/v1/api/recipes?#{credentialKey}&q="
-		# else
-
-		yummlyQUrl = "http://api.yummly.com/v1/api/recipes?#{credentialKey}#{joinedURL}"
-
-		console.log("finished URL",yummlyQUrl)
+		# console.log("finished URL",yummlyQUrl)
 		#Pull Yummly API
 		request yummlyQUrl, (error, response, body) ->
 			# console.log(body);
@@ -139,7 +155,7 @@ module.exports = (req, res) ->
 	tasks = [
 		(cb) ->
 			toRender = {
-				title: 'Veganizzm Apperoni'
+				title: 'Veganizzm App'
 			}
 			getMetaData searchMetaParam.cuisine, (err, data) ->
 				toRender.allowedCuisine = data

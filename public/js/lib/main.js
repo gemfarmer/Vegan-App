@@ -9,12 +9,18 @@
   $(function() {
     console.log('fire jQ');
     socket.on('connect', function() {
-      return console.log("fire socket");
+      socket.on('yumKeyUpData', function(data) {
+        return console.log(data);
+      });
+      return console.log("socket connected to yummly");
     });
     $(document).on('keyup', '.chosen-search input', function(e) {
       var dataToYummly, val;
       e.preventDefault();
       val = $(this).val();
+      if (val.length <= 5 || 8 <= val.length) {
+        return;
+      }
       dataToYummly = {};
       dataToYummly.q = val;
       console.log("dataToYummly:", dataToYummly);
