@@ -10,11 +10,15 @@ $ ->
 			console.log(data.matches)
 			matched = data.matches
 			console.log(matched)
-			# $('.querySearchSelect').empty()
-			if matched
-				for item in matched
-					console.log(item.recipeName)
-					$('.collectionDiv').append("<option value=#{item.recipeName}>#{item.recipeName}</option>")	
+		
+			$('.querySearchSelect').empty()
+			$('.querySearchSelect').parents('chosen-results').empty()
+			for item in matched
+				console.log(item.recipeName)
+				joinedRecipeItem = (item.recipeName).split(" ").join("+")
+				$('.querySearchSelect').append("<option class='querySearchOptions' value=#{joinedRecipeItem}>#{item.recipeName}</option>")
+
+				$('.querySearchSelect').trigger("chosen:updated");
 		console.log("socket connected to yummly")
 	
 
@@ -23,7 +27,7 @@ $ ->
 		
 		val = $(this).val()
 
-		if val.length <= 5 or 8 <= val.length
+		if val.length <= 3 
 			return
 		dataToYummly = {}
 

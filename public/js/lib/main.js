@@ -10,19 +10,21 @@
     console.log('fire jQ');
     socket.on('connect', function() {
       socket.on('yumKeyUpData', function(data) {
-        var item, matched, _i, _len, _results;
+        var item, joinedRecipeItem, matched, _i, _len, _results;
         console.log(data.matches);
         matched = data.matches;
         console.log(matched);
-        if (matched) {
-          _results = [];
-          for (_i = 0, _len = matched.length; _i < _len; _i++) {
-            item = matched[_i];
-            console.log(item.recipeName);
-            _results.push($('.collectionDiv').append("<option value=" + item.recipeName + ">" + item.recipeName + "</option>"));
-          }
-          return _results;
+        $('.querySearchSelect').empty();
+        $('.querySearchSelect').parents('chosen-results').empty();
+        _results = [];
+        for (_i = 0, _len = matched.length; _i < _len; _i++) {
+          item = matched[_i];
+          console.log(item.recipeName);
+          joinedRecipeItem = item.recipeName.split(" ").join("+");
+          $('.querySearchSelect').append("<option class='querySearchOptions' value=" + joinedRecipeItem + ">" + item.recipeName + "</option>");
+          _results.push($('.querySearchSelect').trigger("chosen:updated"));
         }
+        return _results;
       });
       return console.log("socket connected to yummly");
     });
@@ -30,7 +32,7 @@
       var dataToYummly, val;
       e.preventDefault();
       val = $(this).val();
-      if (val.length <= 5 || 8 <= val.length) {
+      if (val.length <= 3) {
         return;
       }
       dataToYummly = {};
