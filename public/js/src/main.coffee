@@ -12,7 +12,7 @@ $ ->
 			console.log(matched)
 		
 			$('.querySearchSelect').empty()
-			$('.querySearchSelect').parents('chosen-results').empty()
+			# $('.querySearchSelect').parents('chosen-results').empty()
 			for item in matched
 				console.log(item.recipeName)
 				joinedRecipeItem = (item.recipeName).split(" ").join("+")
@@ -27,7 +27,7 @@ $ ->
 		
 		val = $(this).val()
 
-		if val.length <= 3 
+		if val.length <= 4 
 			return
 		dataToYummly = {}
 

@@ -15,7 +15,6 @@
         matched = data.matches;
         console.log(matched);
         $('.querySearchSelect').empty();
-        $('.querySearchSelect').parents('chosen-results').empty();
         _results = [];
         for (_i = 0, _len = matched.length; _i < _len; _i++) {
           item = matched[_i];
@@ -32,7 +31,7 @@
       var dataToYummly, val;
       e.preventDefault();
       val = $(this).val();
-      if (val.length <= 3) {
+      if (val.length <= 4) {
         return;
       }
       dataToYummly = {};

@@ -104,8 +104,10 @@ module.exports = (req, res) ->
 			#Pull Yummly API
 			request yummlyUpdatedUrl, (error, response, body) ->
 				# console.log(body);
-				yummlyObj = JSON.parse(body)
+				# data.object = yummlyObj = JSON.parse(body)
+				# data.query = query.q
 				# console.log("YUM", yummlyObj)
+				yummlyObj = JSON.parse(body)
 
 				socket.emit('yumKeyUpData',yummlyObj)
 
