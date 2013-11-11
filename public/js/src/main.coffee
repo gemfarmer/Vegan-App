@@ -5,21 +5,49 @@ socket = io.connect();
 
 $ ->
 	console.log 'fire jQ'
+
+
 	socket.on 'connect', () ->
+		console.log("socket connected to yummly")
+
+
+		#recieve data to append to the DOM
 		socket.on 'yumKeyUpData', (data) ->
+			# console.log("data::::",data)
 			console.log(data.matches)
 			matched = data.matches
-			console.log(matched)
-		
+			console.log("matched::::",matched)
+			
+			#empty query field
 			$('.querySearchSelect').empty()
-			# $('.querySearchSelect').parents('chosen-results').empty()
-			for item in matched
-				console.log(item.recipeName)
-				joinedRecipeItem = (item.recipeName).split(" ").join("+")
-				$('.querySearchSelect').append("<option class='querySearchOptions' value=#{joinedRecipeItem}>#{item.recipeName}</option>")
+			#empty dom
+			$('#recipeRepo').empty()
 
+
+			for item in matched
+				# console.log(item.recipeName)
+				# joinedRecipeItem = (item.recipeName).split(" ").join("+")
+				$('.querySearchSelect').append("<option class='querySearchOptions' value=#{item.id}>#{item.recipeName}</option>")
+
+				#update chosen fields
 				$('.querySearchSelect').trigger("chosen:updated");
-		console.log("socket connected to yummly")
+
+				#update matched recipe area
+				recipeNameDom = "<div value='#{item.id}' class='recipeName'>#{item.recipeName}</div>"
+				recipeSource = "<div class='recipeSource'>Source: #{item.sourceDisplayName}</div>"
+				if item.smallImageUrls[0]
+					recipeImg = "<img class='recipeImg' src=#{item.smallImageUrls[0]}></img>"
+				else
+					recipeImg = ""
+				$('#recipeRepo').append("<li class='matchedRecipe'>#{recipeImg}#{recipeNameDom}#{recipeSource}</li>")
+
+			
+			console.log("item::::", data)
+			$('#matchedResults').text("#{data.totalMatchCount} Matched Results")
+
+
+			
+		
 	
 
 	$(document).on 'keyup', '.chosen-search input', (e) ->

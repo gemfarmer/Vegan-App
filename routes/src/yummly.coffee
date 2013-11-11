@@ -32,18 +32,18 @@ module.exports = (req, res) ->
 		cuisine: 'cuisine'
 		course: 'course'
 	}
-	credentials = {
-		yummlyAppId : '48b32423'
-		yummlyAppKey : "f801fe2eacf40c98299940e2824de106"
-	}
+	# credentials = {
+	# 	yummlyAppId : '48b32423'
+	# 	yummlyAppKey : "f801fe2eacf40c98299940e2824de106"
+	# }
 	# credentials = {
 	# 	yummlyAppId : '97e6abca'
 	# 	yummlyAppKey : "d484870556711f7eaa34a88431fd1c84"
 	# }
-	# credentials = {
-	# 	yummlyAppId : 'f7e932f4'
-	# 	yummlyAppKey : "ea34523729835c47af535398733dcd28"
-	# }
+	credentials = {
+		yummlyAppId : 'f7e932f4'
+		yummlyAppKey : "ea34523729835c47af535398733dcd28"
+	}
 	
 	credentialKey = "_app_id=#{credentials.yummlyAppId}&_app_key=#{credentials.yummlyAppKey}"
 

@@ -9,23 +9,30 @@
   $(function() {
     console.log('fire jQ');
     socket.on('connect', function() {
-      socket.on('yumKeyUpData', function(data) {
-        var item, joinedRecipeItem, matched, _i, _len, _results;
+      console.log("socket connected to yummly");
+      return socket.on('yumKeyUpData', function(data) {
+        var item, matched, recipeImg, recipeNameDom, recipeSource, _i, _len;
         console.log(data.matches);
         matched = data.matches;
-        console.log(matched);
+        console.log("matched::::", matched);
         $('.querySearchSelect').empty();
-        _results = [];
+        $('#recipeRepo').empty();
         for (_i = 0, _len = matched.length; _i < _len; _i++) {
           item = matched[_i];
-          console.log(item.recipeName);
-          joinedRecipeItem = item.recipeName.split(" ").join("+");
-          $('.querySearchSelect').append("<option class='querySearchOptions' value=" + joinedRecipeItem + ">" + item.recipeName + "</option>");
-          _results.push($('.querySearchSelect').trigger("chosen:updated"));
+          $('.querySearchSelect').append("<option class='querySearchOptions' value=" + item.id + ">" + item.recipeName + "</option>");
+          $('.querySearchSelect').trigger("chosen:updated");
+          recipeNameDom = "<div value='" + item.id + "' class='recipeName'>" + item.recipeName + "</div>";
+          recipeSource = "<div class='recipeSource'>Source: " + item.sourceDisplayName + "</div>";
+          if (item.smallImageUrls[0]) {
+            recipeImg = "<img class='recipeImg' src=" + item.smallImageUrls[0] + "></img>";
+          } else {
+            recipeImg = "";
+          }
+          $('#recipeRepo').append("<li class='matchedRecipe'>" + recipeImg + recipeNameDom + recipeSource + "</li>");
         }
-        return _results;
+        console.log("item::::", data);
+        return $('#matchedResults').text("" + data.totalMatchCount + " Matched Results");
       });
-      return console.log("socket connected to yummly");
     });
     $(document).on('keyup', '.chosen-search input', function(e) {
       var dataToYummly, val;

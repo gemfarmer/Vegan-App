@@ -6,3 +6,37 @@ body {
 	height: 40px;
 	width: 80px;
 }
+
+#recipeContainer {
+	text-align: center;
+	background-color: yellow;
+	float: right;
+	/*display: inline-block;*/
+	width: 50%;
+}
+#searchEngine {
+	/*text-align: center;*/
+	display: inline-block;
+	width: 50%;
+	position: fixed;
+}
+/*ul.chosen-choices {
+	margin-bottom: 5px;
+	padding: 10px;
+}*/
+
+#recipeRepo {
+	list-style-type: none;
+	text-align: left
+}
+.matchedRecipe{
+	background-color: peachpuff;
+	margin: 1px;
+	height: 60px;
+	padding: 2px;
+}
+.recipeImg{
+	float: right;
+	height: 50px;
+
+}

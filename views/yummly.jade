@@ -1,40 +1,57 @@
 extends index
 
 block afterNav
-	div YUM YUM YUMMLY!
-	h1= title
-	p A tool for 
-		a(href="http://veganizzm.com/") Veganizzm.com
-	form#recipe-form
+	div.container#searchEngine
+		h1= title
+		p A tool for 
+			a(href="http://veganizzm.com/") Veganizzm.com
+		p Recipe search powered by 
+			a(href='http://www.yummly.com/recipes')
+				img(alt='Yummly', src='http://static.yummly.com/api-logo.png')
+		form#recipe-form
+			select.chzn-select(multiple="true", name="allowedCuisine", style="width: 400px; height: 40px;", data-placeholder="Select cuisine...")
+				for item in allowedCuisine
+					option(value='#{item.searchValue}') #{item.description}
+				
+			br
+			select.chzn-select(multiple="true", name="allowedCourse", style="width: 400px; height: 40px;", data-placeholder="Select courses...")
+				for item in allowedCourse
+					option(value='#{item.searchValue}') #{item.description}
+			br
+			select.chzn-select(multiple="true", name="allowedAllergy", style="width: 400px; height: 40px;", data-placeholder="Select allergy...")
+				for item in allowedAllergy
+					option(value='#{item.searchValue}') #{item.shortDescription}
+		
+			br
+			select.chzn-select(multiple="true", name="allowedDiet", style="width: 400px; height: 40px;", data-placeholder="Select diet...")
+				for item in allowedDiet
+					option(value='#{item.searchValue}') #{item.shortDescription}
+		
+			br
+			select.chzn-select.querySearchSelect(name="q", style="width: 400px; height: 40px;", data-placeholder="Select recipe...")
+				if q 
+					for item in q
+						option.querySearchOptions(value='#{item.id}') #{item.recipeName}	
+			br
+			button.submit-btn.btn.btn-primary(type="submit") Submit Data
 
-		select.chzn-select(multiple="true", name="allowedCuisine", style="width: 500px; hieght: 40px;", data-placeholder="Select cuisine...")
-			for item in allowedCuisine
-				option(value='#{item.searchValue}') #{item.description}
+			div.collectionDiv
+	div.containter#recipeContainer
+		h2 Matched Recipes
+		hr
+		h4#matchedResults 0 Matched Results
+		ul#recipeRepo Recipes
+			for item in q
+				li.matchedRecipe
+					if item.smallImageUrls[0]
+						img.recipeImg(src="#{item.smallImageUrls[0]}")
+					else
+						img.recipeImg(src="img/default-recipe.png")
+					div.recipeName(value='#{item.id}') #{item.recipeName}
+					div.recipeSource Source: #{item.sourceDisplayName}
+
 			
-		br
-		select.chzn-select(multiple="true", name="allowedCourse", style="width: 500px; hieght: 40px;", data-placeholder="Select courses...")
-			for item in allowedCourse
-				option(value='#{item.searchValue}') #{item.description}
-		br
-		select.chzn-select(multiple="true", name="allowedAllergy", style="width: 500px; hieght: 40px;", data-placeholder="Select allergy...")
-			for item in allowedAllergy
-				option(value='#{item.searchValue}') #{item.shortDescription}
-	
-		br
-		select.chzn-select(multiple="true", name="allowedDiet", style="width: 500px; hieght: 40px;", data-placeholder="Select diet...")
-			for item in allowedDiet
-				option(value='#{item.searchValue}') #{item.shortDescription}
-	
-		br
-		select.chzn-select.querySearchSelect(name="q", style="width: 500px; height: 40px;", data-placeholder="Select recipe...")
-			if q 
-				for item in q
-					option.querySearchOptions(value='#{item.recipeName}') #{item.recipeName}	
-		br
-		button.submit-btn.btn.btn-primary(type="submit") Submit Data
-
-		div.collectionDiv
-
+			
 
 block modals
 	//- this is where you can add hidden divs and other elements that you'll want to display
