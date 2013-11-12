@@ -38,7 +38,7 @@ $ ->
 				if item.smallImageUrls[0]
 					recipeImg = "<img class='recipeImg' src=#{item.smallImageUrls[0]}></img>"
 				else
-					recipeImg = "<img class='recipeImg' src='img/default-recipe.png'>"
+					recipeImg = "<img class='recipeImg' src='img/default-recipe.png'></img>"
 				$('#recipeRepo').append("<li class='matchedRecipe'>#{recipeImg}#{recipeNameDom}#{recipeSource}</li>")
 
 			

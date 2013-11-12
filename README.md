@@ -3,12 +3,13 @@
 
 ### The app would allow you to..
 1. Search for vegan substitutes to non-vegan ingredients
-2. Search by vegan ingredients or recipe type
-3. House and display vegan recipes added to database
-4. NOT NECESSARY create miniature version of Reciprocity to generate recipes based on provided ingredients
-        * Reciprocity prompts users to submit an ingredient and returns a list of ingredients that it is commonly paired with.
-        * Example: Enter Kale -> Return Cashews, Raisins, etc.
-
+2. Vegan Ingredient Search Engine/Translator
+	* Find alternatives to vegan items
+	* Add unit conversion
+3. Allow users to add account.
+	* Add recipes to database
+	* Add vegan substitutes to database
+4. Integrate user additions to recipe search engine, Vegan Ingredient Translator
 
 ## Backend
 
@@ -17,12 +18,12 @@
 2. Node.js/Express
 3. MongoDB
 4. Socket.io
-5. APIs 
-	* Food2Fork: http://food2fork.com/about/api
+5. Passport
+6. APIs 
 	* Yummly: https://developer.yummly.com/
 		> Semantic Recipe Database
 		> VeganYumYum
-	* Veganizzm: http://veganizzm.com/
+#### - NOT LIKELY TO MAKE THE CUT-
 	* BigOven: http://api.bigoven.com/
 	* Whole Foods: 
 	* aetna: https://developer.carepass.com/docs/read/fooducate/fooducateapi_product
@@ -33,7 +34,7 @@
 		> Now owned by Pinterest http://developers.pinterest.com/
 	* Recipe Puppy API: http://www.recipepuppy.com/about/api/
 		> Recipe Database
-6. Hacker League Hack//Meat Silicon Valley: https://www.hackerleague.org/hackathons/hack-slash-slash-meat-silicon-valley/wikipages/51bf4c1198764b653100003e
+7. Hacker League Hack//Meat Silicon Valley: https://www.hackerleague.org/hackathons/hack-slash-slash-meat-silicon-valley/wikipages/51bf4c1198764b653100003e
 
 #### Workflow 
 1. Use API to get data from popular sites like allrecipes.com, foodnetwork.com, etc. for recipes as well as scrape Izzy's veganizzm.com site
@@ -48,8 +49,9 @@
 #### Technologies
 
 1. CoffeeScript
-2. Charts.js (possibly)
-3. HTML5, CSS3
+2. jQuery, Chosen
+3. Bootstrap
+4. HTML5, CSS3
 
 #### Workflow
 
@@ -62,17 +64,32 @@
 7. Provide ingredient-level or meal-level substitutes for ingredients
 
 ## To DO
-1. Finish Client Side Query set
-	* Fix query search field so that it accesses api with parameter constraints
-	* move query logic from yummlyControl.coffee to yummly.coffee
-	* isolate relevent data
-		> res.send to main.coffee in intelligable format
-		> append to DOM
+##### (* -> low priority, **** -> high priority)
 
-2. Find second API to pull
-3. Look for ingredient substitution listing
+#### Yummly.coffee (Find)
+1. ** Fix query search field so that more than 5 characters can be added before refreshing
+2. ** Make yummly.coffee responsive
+3. ** Finalize displayed recipe info
+4. *** Store API requests in database (at least for first request)
+
+#### Substitution.coffee (Discover)
+
+1. *** Create hard code vegan substitution listing
 	* http://www.vegetariantimes.com/article/ingredient-substitution-guide/
 	* http://www.veganwolf.com/vegan_cooking_substitutions.htm
 	* http://vegetarian.lovetoknow.com/Vegan_Ingredient_Substitution_List
 	* http://www.vegkitchen.com/tips/vegan-substitutions/
+2. **** Add search field and unit conversion fields
+
+#### Share.coffee (Share)
+1. **** Add ability to enter secure area where you can add...
+	* recipes
+	* substitutes
+2. *** Store shares in database
+
+
+#### Misc
+1. * Find second API to pull
+2. ** Add Contact
+3. **** Collapse nav-bar on smaller screen sizes
 
