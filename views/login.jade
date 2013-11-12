@@ -14,35 +14,36 @@ block metas
 
 block afterNav
 
-   div.page-header
-      h2 Log In to #{config.name}
+   div.jumbotron.page-header.col-xs-12.col-sm-offset-3.col-sm-6
+      h3#login-heading Log In to #{config.name}
 
-   //- TODO: figure out how to get access to passport error messages
-   //-if message[0]
-      div.row
-         div.span7
-            div.alert.alert-error
-               button.close(
-                  type='button'
-                  data-dismiss='alert') x
-               h4 Login Error!
-               span #{message[0]}
+         //- TODO: figure out how to get access to passport error messages
+         //-if message[0]
+            //- div.row
+            //-    div.span7
+            //-       div.alert.alert-error
+            //-          button.close(
+            //-             type='button'
+            //-             data-dismiss='alert') x
+            //-          h4 Login Error!
+            //-          span #{message[0]}
 
-   div
+   
       form.form-horizontal(action='/login', method='POST')
-         div.control-group
-            label.control-label(for='username') Username
-            div.controls
-               input(type='text', name='username', placeholder='username', autofocus)
-         div.control-group
-            label.control-label(for='password') Password
-            div.controls
-               input(type='password', name='password', placeholder='password')
-         div.control-group
-            div.controls
-               button.btn.btn-primary(type='submit', value='Log Me In!') Login
-               |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-               a.btn.btn-inverse(href='/register') Register
+         .fieldset
+            div.form-group
+               //- label.form-label(for='username') Username
+               div.col-xs-12
+                  input.form-control(type='text', name='username', placeholder='username', autofocus)
+            div.form-group
+               //- label.form-label(for='password') Password
+               div.col-xs-12
+                  input.form-control(type='password', name='password', placeholder='password')
+            div.form-group
+               div.form-actions.col-xs-12
+                  button.btn.btn-primary(type='submit', value='Log Me In!') Login
+                  |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  a.btn.btn-inverse(href='/register') Register
 
 block modals
    //- this is where you can add hidden divs and other elements that you'll want to display

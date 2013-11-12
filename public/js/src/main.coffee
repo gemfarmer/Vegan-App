@@ -44,10 +44,6 @@ $ ->
 			
 			console.log("item::::", data)
 			$('#matchedResults').text("#{data.totalMatchCount} Matched Results")
-
-
-			
-		
 	
 
 	$(document).on 'keyup', '.chosen-search input', (e) ->
@@ -78,3 +74,8 @@ $ ->
 
 		console.log("info",info)
 		socket.emit 'yumForm', info
+
+	$(document).on 'click', '#searchEngine', (e) ->
+		e.preventDefault()
+		console.log("click")
+		$('#searchEngine').toggleClass('tuck')

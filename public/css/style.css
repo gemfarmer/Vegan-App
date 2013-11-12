@@ -1,5 +1,7 @@
 body {
   padding-top: 100px;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 .collectionDiv{
@@ -49,5 +51,17 @@ body {
 	width: 100%;
 }
 .chosen-container {
-	margin-bottom: 3px;
+	margin-bottom: 1px;
+}
+/*.jumbotron.page-header{
+	padding: 30px;
+	
+}*/
+
+#login-heading{
+	text-align: center;
+}
+
+.tuck {
+	transform: translateX(-430px);
 }

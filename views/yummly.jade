@@ -1,15 +1,14 @@
 extends index
 
 block afterNav
-	.jumbotron#searchEngine
-		h3= title
+	#searchEngine.jumbotron
 		p A tool for 
 			a(href="http://veganizzm.com/") Veganizzm.com
 		p Recipe search powered by 
 			a(href='http://www.yummly.com/recipes')
 				img(alt='Yummly', src='http://static.yummly.com/api-logo.png')
 		form#recipe-form
-			select.chzn-select(multiple="true", name="allowedCuisine", style="width: 400px; height: 40px;", data-placeholder="Select cuisine...")
+			select.form-group.chzn-select(multiple="true", name="allowedCuisine", style="width: 400px; height: 40px;", data-placeholder="Select cuisine...")
 				for item in allowedCuisine
 					option(value='#{item.searchValue}') #{item.description}
 				
@@ -35,10 +34,10 @@ block afterNav
 			br
 			button.submit-btn.btn.btn-primary(type="submit") Submit Data
 
-	#recipeContainer
+	#recipeContainer.col-xs-12.col-sm-offset-2.col-sm-8
 		h2#matchedTitle Matched Recipes
 		hr
-		h4#matchedResults 0 Matched Results
+		h4#matchedResults 10  Results
 		ul#recipeRepo
 			for item in q
 				li.matchedRecipe

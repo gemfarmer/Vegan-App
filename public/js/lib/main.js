@@ -49,12 +49,17 @@
       return socket.emit('yumKeyUp', dataToYummly);
     });
     $(".chzn-select").chosen();
-    return $('#recipe-form').on('change', function(e) {
+    $('#recipe-form').on('change', function(e) {
       var info;
       e.preventDefault();
       info = $(this).serialize();
       console.log("info", info);
       return socket.emit('yumForm', info);
+    });
+    return $(document).on('click', '#searchEngine', function(e) {
+      e.preventDefault();
+      console.log("click");
+      return $('#searchEngine').toggleClass('tuck');
     });
   });
 

@@ -12,55 +12,56 @@ block metas
          
 
 block afterNav
-   div.page-header
+   div.page-header.col-xs-12.col-sm-offset-3.col-sm-6
       h2 Register an Account
 
    div.row-fluid
       form.form-horizontal(action='/register', method='POST')
-         div.control-group
-            label.control-label(for='username') Username
-            div.controls
-               input(
-                  type='text'
-                  name='username'
-                  id='username'
-                  placeholder='username'
-                  required)
-               span.help-inline
-         div.control-group
-            label.control-label(for='email') Email
-            div.controls
-               input(type='email'
-                  name='email'
-                  id='email'
-                  required
-                  placeholder='email@example.com')
-               span.help-inline
-         div.control-group
-            label.control-label(for='password') Password
-            div.controls
-               input(type='password'
-                  name='password'
-                  required
-                  placeholder='password')
-         div.control-group
-            label.control-label(for='name[first]') First Name
-            div.controls
-               input(type='text'
-                  name='name[first]'
-                  required
-                  placeholder='John')
-         div.control-group
-            label.control-label(for='name[last]') Last Name
-            div.controls
-               input(type='text'
-                  name='name[last]'
-                  required
-                  placeholder='Smith')
-         div.form-actions
-            button.btn.btn-primary(type='submit', id='#regBtn', disabled) Register
-            | &nbsp;&nbsp;
-            a.btn(href='/') Cancel        
+         .fieldset
+            div.form-group
+               label.form-label(for='username') Username
+               div.col-xs-12.col-sm-offset-3.col-sm-6
+                  input(
+                     type='text'
+                     name='username'
+                     id='username'
+                     placeholder='username'
+                     required)
+                  span.help-inline
+            div.form-group
+               label.form-label(for='email') Email
+               div.col-xs-12.col-sm-offset-3.col-sm-6
+                  input(type='email'
+                     name='email'
+                     id='email'
+                     required
+                     placeholder='email@example.com')
+                  span.help-inline
+            div.form-group
+               label.form-label(for='password') Password
+               div.col-xs-12.col-sm-offset-3.col-sm-6
+                  input(type='password'
+                     name='password'
+                     required
+                     placeholder='password')
+            div.form-group
+               label.form-label(for='name[first]') First Name
+               div.col-xs-12.col-sm-offset-3.col-sm-6
+                  input(type='text'
+                     name='name[first]'
+                     required
+                     placeholder='John')
+            div.form-group
+               label.form-label(for='name[last]') Last Name
+               div.col-xs-12.col-sm-offset-3.col-sm-6
+                  input(type='text'
+                     name='name[last]'
+                     required
+                     placeholder='Smith')
+            div.form-actions.col-xs-12.col-sm-offset-3.col-sm-6
+               button.btn.btn-primary(type='submit', id='#regBtn', disabled) Register
+               | &nbsp;&nbsp;
+               a.btn(href='/') Cancel        
 
 block modals
    //- this is where you can add hidden divs and other elements that you'll want to display

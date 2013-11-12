@@ -6,7 +6,7 @@ links = [
   { label: 'About', key: 'about', path: '/about'},
   { label: 'Recipes', key: 'yummly', path: '/yummly'},
   { label: 'Substitutes', key: 'substitutes', path: '/substitutes'},
-  { label: 'Submit', key: 'submitrecipe', path: '/submitrecipe'}
+  { label: 'Share', key: 'share', path: '/submitrecipe'}
 
 ];
 

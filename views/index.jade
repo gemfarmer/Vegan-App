@@ -2,15 +2,21 @@ extends layout
 
 block content
 	div.navbar.navbar-default.navbar-fixed-top
-		div.navbar-inner
-			div.container-fluid
-				button.btn.btn-navbar(type='button', data-toggle='collapse', data-target='.nav-collapse')
+		container 
+			div.navbar-header
+				a.navbar-brand(href='/') #{config.name}
+				button.navbar-toggle(type='button', data-toggle='collapse', data-target='#navbat-main')
 					span.icon-bar
 					span.icon-bar
 					span.icon-bar
-				a.brand(href='/') #{config.name}
+			div.navbar-collapse.collapse#navbar-main
+				ul.nav.navbar-nav
+					each link in links
+						- var isActive = (link.path == current ? 'active' : '')
+						li(class = '#{isActive}')
+							a(href='#{link.path}')= link.label
 				div.pull-right
-					ul.nav
+					ul.nav.navbar-nav.navbar-right
 						if user
 							li.dropdown
 								a.dropdown-toggle(href='#', data-toggle='dropdown')
@@ -29,12 +35,8 @@ block content
 								a.dropdown-toggle(href='/login') Login
 									b.caret
 
-				div.nav-collapse.collapse
-					ul.nav
-						each link in links
-							- var isActive = (link.path == current ? 'active' : '')
-							li(class = '#{isActive}')
-								a(href='#{link.path}')= link.label
+				
+					
 
 						
 	div.container-fluid   
