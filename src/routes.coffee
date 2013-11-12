@@ -41,5 +41,5 @@ module.exports = (app, request) ->
 	app.get('/veganizzm', home.requestVeganizzm)
 	app.get('/yummly', yumRoute.yummly)
 	# app.get('/substitution', yumRoute.substitution)
-	app.get('/substitutes', yumRoute.substitutes)
+	app.get('/substitution', yumRoute.substitution)
 

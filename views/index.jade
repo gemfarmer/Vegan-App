@@ -1,7 +1,7 @@
 extends layout
 
 block content
-	div.navbar.navbar-fixed-top
+	div.navbar.navbar-default.navbar-fixed-top
 		div.navbar-inner
 			div.container-fluid
 				button.btn.btn-navbar(type='button', data-toggle='collapse', data-target='.nav-collapse')
@@ -35,7 +35,7 @@ block content
 							- var isActive = (link.path == current ? 'active' : '')
 							li(class = '#{isActive}')
 								a(href='#{link.path}')= link.label
-				///.nav-collapse
+
 						
 	div.container-fluid   
 		block afterNav

@@ -37,8 +37,8 @@
       course: 'course'
     };
     credentials = {
-      yummlyAppId: 'f7e932f4',
-      yummlyAppKey: "ea34523729835c47af535398733dcd28"
+      yummlyAppId: '48b32423',
+      yummlyAppKey: "f801fe2eacf40c98299940e2824de106"
     };
     credentialKey = "_app_id=" + credentials.yummlyAppId + "&_app_key=" + credentials.yummlyAppKey;
     io.sockets.on('connection', function(socket) {
@@ -54,7 +54,6 @@
           allowedCuisine: "&allowedCuisine[]="
         };
         parsedFormData = querystring.parse(formData);
-        console.log("formData::::::", parsedFormData);
         queryObj = {};
         for (param in parsedFormData) {
           if (typeof parsedFormData[param] === "object") {
