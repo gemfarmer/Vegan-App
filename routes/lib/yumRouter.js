@@ -14,7 +14,8 @@
 
   module.exports = {
     yummly: require('./yummly'),
-    substitution: require('./substitution')
+    substitution: require('./substitution'),
+    share: require('./share')
   };
 
 }).call(this);

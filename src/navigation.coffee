@@ -1,12 +1,12 @@
 # nav links for bootstrap
 
 links = [
-  { label: 'Home', key: 'front', path: '/'},
-  { label: 'Profile', key: 'profile', path: '/profile'},
-  { label: 'About', key: 'about', path: '/about'},
+  # { label: 'Home', key: 'front', path: '/'},
+  # { label: 'About', key: 'about', path: '/about'},
   { label: 'Recipes', key: 'yummly', path: '/yummly'},
-  { label: 'Substitutes', key: 'substitutes', path: '/substitutes'},
-  { label: 'Share', key: 'share', path: '/submitrecipe'}
+  # { label: 'Profile', key: 'profile', path: '/profile'},
+  { label: 'Substitutes', key: 'substitution', path: '/substitution'},
+  { label: 'Share', key: 'share', path: '/share'}
 
 ];
 

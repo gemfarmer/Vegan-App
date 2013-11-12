@@ -1,16 +1,21 @@
 extends index
 
 block afterNav
-	div.row-fluid   
+	div.row-fluid.jumbotron.page-header.col-xs-12.col-sm-offset-3.col-sm-6
+		select.chzn-select.querySearchSelect(name="q", style="width: 400px; height: 40px;", data-placeholder="Select recipe...")
+				
+						option.querySearchOptions(value='itemid', data-placeholder="Select recipe...") vegan item name
+
+	div.row-fluid 
 		h1 Subsitute Finder/Converter
 		ul Goals for this page. Allow users to...
 			li Search nonVegan items for substitutes
 			li Search substitutes for non-vegan items
 			li Add conversion table for substitues
-	div.row-fluid
-		select.chzn-select.subSearch(name="q", style="width: 500px; height: 40px;", data-placeholder="Select a non vegan item...")
-			for item in q
-				option.subSearch(value='#{item.substitute}') #{item.substitute}	
+
+		//- select.chzn-select.subSearch(name="q", style="width: 500px; height: 40px;", data-placeholder="Select a non vegan item...")
+		//- 	for item in q
+		//- 		option.subSearch(value='#{item.substitute}') #{item.substitute}	
 
 block modals
 	//- this is where you can add hidden divs and other elements that you'll want to display
@@ -18,5 +23,7 @@ block modals
 
 block pageScripts
 	script(src="js/lib/main.js")
+	script(src="js/lib/substitution.js")
+
 	//- This is where any page specific scripts go   
 		Keep in mind that these are included in every page already:

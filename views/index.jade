@@ -5,7 +5,7 @@ block content
 		container 
 			div.navbar-header
 				a.navbar-brand(href='/') #{config.name}
-				button.navbar-toggle(type='button', data-toggle='collapse', data-target='#navbat-main')
+				button.navbar-toggle(type='button', data-toggle='collapse', data-target='#navbar-main')
 					span.icon-bar
 					span.icon-bar
 					span.icon-bar
@@ -26,7 +26,10 @@ block content
 									//-li
 										a(href='/needmorestuff')
 									li
+										a(href='/profile') Settings
+									li
 										a(href='/logout') Log Out
+
 									if user.role==='admin'
 										li
 											a(href='/admin') Admin Section

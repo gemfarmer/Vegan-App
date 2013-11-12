@@ -12,6 +12,7 @@ mongoose = require 'mongoose'
 
 
 module.exports = (req, res) ->
+	res.render 'substitution'
 
 	# 	console.log("submittedInfo", submittedInfo)
 	# recipeSearch = new RecipeSearch(submittedInfo)

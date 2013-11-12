@@ -53,15 +53,20 @@ body {
 .chosen-container {
 	margin-bottom: 1px;
 }
-/*.jumbotron.page-header{
-	padding: 30px;
+.jumbotron.page-header{
+	margin-top: -15px;
 	
-}*/
+}
 
-#login-heading{
+#login-heading,#register-heading{
 	text-align: center;
+	margin-top: -5px;
 }
 
 .tuck {
 	transform: translateX(-430px);
+}
+
+.form-horizontal{
+	font-size: 15px;
 }

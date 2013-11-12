@@ -9,6 +9,6 @@ mongoose = require 'mongoose'
 # routes that handle the yummly api logic pages 
 module.exports = {
 	yummly: require('./yummly')
-	substitution: require './substitution'
-	# share: require './share'
+	substitution: require('./substitution')
+	share: require('./share')
 }

@@ -12,16 +12,16 @@ block metas
          
 
 block afterNav
-   div.page-header.col-xs-12.col-sm-offset-3.col-sm-6
-      h2 Register an Account
-
-   div.row-fluid
+   div.page-header.jumbotron.col-xs-12.col-sm-offset-3.col-sm-6
+      h2#register-heading Register an Account
+      hr
+   
       form.form-horizontal(action='/register', method='POST')
          .fieldset
             div.form-group
-               label.form-label(for='username') Username
-               div.col-xs-12.col-sm-offset-3.col-sm-6
-                  input(
+               label.form-label.col-xs-4(for='username') Username:
+               div.col-xs-8
+                  input.form-control(
                      type='text'
                      name='username'
                      id='username'
@@ -29,36 +29,36 @@ block afterNav
                      required)
                   span.help-inline
             div.form-group
-               label.form-label(for='email') Email
-               div.col-xs-12.col-sm-offset-3.col-sm-6
-                  input(type='email'
+               label.form-label.col-xs-4(for='email') Email:
+               div.col-xs-8
+                  input.form-control(type='email'
                      name='email'
                      id='email'
                      required
                      placeholder='email@example.com')
                   span.help-inline
             div.form-group
-               label.form-label(for='password') Password
-               div.col-xs-12.col-sm-offset-3.col-sm-6
-                  input(type='password'
+               label.form-label.col-xs-4(for='password') Password:
+               div.col-xs-8
+                  input.form-control(type='password'
                      name='password'
                      required
                      placeholder='password')
             div.form-group
-               label.form-label(for='name[first]') First Name
-               div.col-xs-12.col-sm-offset-3.col-sm-6
-                  input(type='text'
+               label.form-label.col-xs-4(for='name[first]') First Name:
+               div.col-xs-8
+                  input.form-control(type='text'
                      name='name[first]'
                      required
                      placeholder='John')
             div.form-group
-               label.form-label(for='name[last]') Last Name
-               div.col-xs-12.col-sm-offset-3.col-sm-6
-                  input(type='text'
+               label.form-label.col-xs-4(for='name[last]') Last Name:
+               div.col-xs-8
+                  input.form-control(type='text'
                      name='name[last]'
                      required
                      placeholder='Smith')
-            div.form-actions.col-xs-12.col-sm-offset-3.col-sm-6
+            div.form-actions.col-xs-12
                button.btn.btn-primary(type='submit', id='#regBtn', disabled) Register
                | &nbsp;&nbsp;
                a.btn(href='/') Cancel        

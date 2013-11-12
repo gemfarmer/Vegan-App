@@ -12,29 +12,31 @@ block metas
          
 
 block afterNav
-   div.page-header
+   div.page-header.jumbotron.col-xs-12.col-sm-offset-3.col-sm-6
       h2 Your Profile 
+      div.row-fluid#profile-form
+         form.form-horizontal(id='userInfo', action='', method='POST')
+            div.control-group
+               label.control-label(for='name[first]') First Name
+               div.form-control
+                  span.input-large.uneditable-input #{user.name.first}
+            div.control-group
+               label.control-label(for='name[last]') Last Name
+               div.form-control
+                  span.input-large.uneditable-input #{user.name.last}
+            div.control-group
+               label.control-label(for='email') Email
+               div.form-control
+                  span.input-large.uneditable-input #{user.email}
+            div.control-group
+               label.control-label(for='username') Username
+               div.form-control
+                  span.input-large.uneditable-input #{user.username}
+         br
+         div.button
+            a(href='/logout') Logout
+
    div.row-fluid
-      form.form-horizontal(id='userInfo', action='', method='POST')
-         div.control-group
-            label.control-label(for='name[first]') First Name
-            div.controls
-               span.input-large.uneditable-input #{user.name.first}
-         div.control-group
-            label.control-label(for='name[last]') Last Name
-            div.controls
-               span.input-large.uneditable-input #{user.name.last}
-         div.control-group
-            label.control-label(for='email') Email
-            div.controls
-               span.input-large.uneditable-input #{user.email}
-         div.control-group
-            label.control-label(for='username') Username
-            div.controls
-               span.input-large.uneditable-input #{user.username}
-   
-   div.button
-      a(href='/logout') Logout
 
 
 block modals

@@ -1,7 +1,7 @@
 # dependencies
 passport = require('passport');
 home = require('./../routes/lib/home');
-yumRoute = require('./../routes/lib/yumRouter');
+yumRouter = require('./../routes/lib/yumRouter');
 
 request = require('request')
 
@@ -32,14 +32,14 @@ module.exports = (app, request) ->
 		res.redirect('/')
 		return
 	app.get('/logout', restrict, home.logout);
-	app.get('/about', home.about);
-	app.get('/about/tos', home.tos);
+	# app.get('/about', home.about);
+	# app.get('/about/tos', home.tos);
 	app.get('/register', home.getRegister);
 	app.post('/register', home.postRegister);
 	app.get('/checkExists', home.checkExists);
 	app.get('/profile', restrict, home.profile);
-	app.get('/veganizzm', home.requestVeganizzm)
-	app.get('/yummly', yumRoute.yummly)
-	# app.get('/substitution', yumRoute.substitution)
-	app.get('/substitution', yumRoute.substitution)
+	app.get('/share', yumRouter.share)
+	# app.get('/veganizzm', home.requestVeganizzm)
+	app.get('/yummly', yumRouter.yummly)
+	app.get('/substitution', yumRouter.substitution)
 
