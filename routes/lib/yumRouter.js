@@ -12,10 +12,13 @@
 
   mongoose = require('mongoose');
 
-  module.exports = {
-    yummly: require('./yummly'),
-    substitution: require('./substitution'),
-    share: require('./share')
+  module.exports = function(io) {
+    console.log("yummly", require("./yummly"));
+    return {
+      yummly: require('./yummly')(io).yummly,
+      substitution: require('./substitution')(io).index,
+      share: require('./share')
+    };
   };
 
 }).call(this);

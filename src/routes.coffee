@@ -1,7 +1,7 @@
 # dependencies
 passport = require('passport');
 home = require('./../routes/lib/home');
-yumRouter = require('./../routes/lib/yumRouter');
+
 
 request = require('request')
 
@@ -22,7 +22,8 @@ isAdmin = (req, res, next) ->
 	return
 
 # routes
-module.exports = (app, request) ->
+module.exports = (app, request, io) ->
+	yumRouter = require('./../routes/lib/yumRouter')(io);
 	# io.sockets.on 'connection', (socket) ->
 	app.get('/', home.index);
 	app.get('/login', home.login);

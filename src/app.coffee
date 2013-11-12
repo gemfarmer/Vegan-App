@@ -17,13 +17,26 @@ global.app = app;
 config = require('./config.js');
 app.locals.config = config;
 
+#require socket.io module
+socketio = require 'socket.io'
+
 
 # Create the server
 server = http.createServer(app);
 
-module.exports = {
-	server: server
-}
+# module.exports = {
+# 	server: server
+# }
+
+# #include server module from app.js
+# server = require('./../../lib/app.js').server
+
+
+
+#Start the web socket server
+io = socketio.listen(server);
+
+
 
 
 # connect to the database
@@ -79,7 +92,7 @@ app.configure 'production', () ->
 	return
 
 # load the router
-require(__dirname+'/routes')(app, request);
+require(__dirname+'/routes')(app, request, io);
 
 port = config.port;
 server.listen port, () ->

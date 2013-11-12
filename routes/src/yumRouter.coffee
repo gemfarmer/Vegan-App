@@ -7,8 +7,10 @@ mongoose = require 'mongoose'
 
 
 # routes that handle the yummly api logic pages 
-module.exports = {
-	yummly: require('./yummly')
-	substitution: require('./substitution')
-	share: require('./share')
-}
+module.exports = (io) ->
+	console.log("yummly",require("./yummly"))
+	{
+		yummly: require('./yummly')(io).yummly
+		substitution: require('./substitution')(io).index
+		share: require('./share')
+	}

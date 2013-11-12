@@ -74,17 +74,18 @@
 
 #### Substitution.coffee (Discover)
 
-1. *** Create hard code vegan substitution listing
+1. *** Create hard code vegan substitutio<!-- n listing
 	* http://www.vegetariantimes.com/article/ingredient-substitution-guide/
 	* http://www.veganwolf.com/vegan_cooking_substitutions.htm
 	* http://vegetarian.lovetoknow.com/Vegan_Ingredient_Substitution_List
 	* http://www.vegkitchen.com/tips/vegan-substitutions/
-2. **** Add search field and unit conversion fields
+2. **** Add search field and unit conversion fields -->
+3. **** Add to database on submit!
 
 #### Share.coffee (Share)
-1. **** Add ability to enter secure area where you can add...
+1. <!-- **** Add ability to enter secure area where you can add...
 	* recipes
-	* substitutes
+	* s -->ubstitutes
 2. *** Store shares in database
 
 

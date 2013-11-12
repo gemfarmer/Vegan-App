@@ -1,19 +1,50 @@
 
-
-
 console.log("fire substitution!")
 
 User = require('../../models/lib/user')
 request = require 'request'
 async = require 'async'
 mongoose = require 'mongoose'
+querystring = require('querystring')
 
+substitutionObject = {
+	q : [
+		{
+			nonVegan: {
+				item: "egg"
+				units: "medium"
+				qty: 1
+			},
+			vegan: {
+				items: ["banana", "tofu/silken tofu", "applesauce"]
+				units: [null, "cup", "cup"]
+				qty: [.5, .25, (1/3), .25]
+				notes: ["stiffens things up", null, null, null]
+			}
+		},
+		{
+			nonVegan: {
+				item: "butter"
+				units: "tbsp"
+				qty: 1
+			},
+			vegan: {
+				items: ["vegetable oil", "olive oil", "cashew puree"]
+				units: ["tbsp", "tbsp", "tbsp"]
+				qty: [1, 1, 1]
+				notes: [null, null, null]
+				}
+		}
+	]
+}
+console.log(substitutionObject)
 
-
-
-module.exports = (req, res) ->
-	res.render 'substitution'
-
+# console.log(substitutionObject)
+module.exports = (io) ->
+	{
+		index: (req, res) ->
+			res.render 'substitution', substitutionObject
+	}
 	# 	console.log("submittedInfo", submittedInfo)
 	# recipeSearch = new RecipeSearch(submittedInfo)
 	# recipeSearch.save (err,data) ->
@@ -29,40 +60,3 @@ module.exports = (req, res) ->
 	# console.log("hello")
 
 
-
-	# res.render 'substitution.jade', {
-	# 		title: app.locals.config.name + ' Terms of Service',
-	# 		user: req.user
-	# 		# q : [
-	# 		# 	{
-	# 		# 		nonVegan: {
-	# 		# 			item: "egg"
-	# 		# 			units: "medium"
-	# 		# 		}
-	# 		# 		vegan: [
-	# 		# 			{
-
-	# 		# 			}
-	# 		# 		]
-	# 		# 		{
-	# 		# 			items: ["banana", "tofu/silken tofu", "applesauce"]
-	# 		# 			units: [null, "cup", "cup"]
-	# 		# 			ratio: [.5, .25, (1/3), .25]
-	# 		# 			notes: [null, null]
-	# 		# 		}
-	# 		# 		nonVeganUnits: "medium egg"
-	# 		# 		substitute: "banana"
-	# 		# 		substituteUnits: 
-	# 		# 		ratio: 1
-	# 		# 	}
-	# 		# 	{
-	# 		# 		nonVegan: "butter"
-	# 		# 		nonVeganUnits: "medium egg"
-	# 		# 		substitute: "banana"
-	# 		# 		substituteUnits: 
-	# 		# 		ratio: 1
-	# 		# 		nonVegan: "butter"
-	# 		# 		substitute: "cashew puree"
-	# 		# 	}
-	# 		# ]
-	# }

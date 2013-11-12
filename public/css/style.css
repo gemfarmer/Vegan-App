@@ -23,6 +23,8 @@ body {
 	display: inline-block;
 	width: 50%;
 	position: fixed;
+	background-color: white;
+	opacity: 1;
 }
 
 #recipeRepo {

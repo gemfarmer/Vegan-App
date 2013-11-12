@@ -1,17 +1,35 @@
 extends index
 
 block afterNav
-	div.row-fluid.jumbotron.page-header.col-xs-12.col-sm-offset-3.col-sm-6
-		select.chzn-select.querySearchSelect(name="q", style="width: 400px; height: 40px;", data-placeholder="Select recipe...")
-				
-						option.querySearchOptions(value='itemid', data-placeholder="Select recipe...") vegan item name
+	div.jumbotron.row-fluid.page-header.col-xs-12.col-sm-offset-3.col-sm-6
+		h3#substituteHeader Enter a substitute: 
+		for item in q
+			h2 #{item.nonVegan.item}
+		form#substitution-form.col-xs-12
+			
+			select.chzn-select.querySearchSelect.form-control(name="q", data-placeholder="Enter non-vegan item...")	
+				option.querySearchOptions(value='', data-placeholder="Enter non-vegan item...")
+				for item in q
+					option.querySearchOptions(value='#{item.nonVegan.item}', data-placeholder="Enter non-vegan item...") #{item.nonVegan.item}
+			div
+				select.chzn-select.form-control(name="units", style="height: 24px;", data-placeholder="Units...")
+					option(value='' data-placeholder="units")
+					for item in q
+						option.col-xs-6(value='#{item.nonVegan.units}') #{item.nonVegan.units}
+				select.chzn-select.form-control(name="qty", style="height: 24px;", data-placeholder="Quanity...")
+					option(value='' data-placeholder="qty")
+					for item in q
+						option.col-xs-6(value='#{item.nonVegan.qty}') #{item.nonVegan.qty}
+			button.btn.btn-inverse.substitution-submit(type="submit") Translate
+	div#substitute-results
+				//- input.form-control.col-xs-4(style="height: 24px", name="qty", data-placeholder="Quantity") 
 
-	div.row-fluid 
-		h1 Subsitute Finder/Converter
-		ul Goals for this page. Allow users to...
-			li Search nonVegan items for substitutes
-			li Search substitutes for non-vegan items
-			li Add conversion table for substitues
+	//- div.row-fluid.col-xs-12.col-sm-12
+		//- h1 Subsitute Finder/Converter
+		//- ul Goals for this page. Allow users to...
+		//- 	li Search nonVegan items for substitutes
+		//- 	li Search substitutes for non-vegan items
+		//- 	li Add conversion table for substitues
 
 		//- select.chzn-select.subSearch(name="q", style="width: 500px; height: 40px;", data-placeholder="Select a non vegan item...")
 		//- 	for item in q

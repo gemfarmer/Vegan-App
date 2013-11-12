@@ -8,29 +8,31 @@ block afterNav
 			a(href='http://www.yummly.com/recipes')
 				img(alt='Yummly', src='http://static.yummly.com/api-logo.png')
 		form#recipe-form
-			select.form-group.chzn-select(multiple="true", name="allowedCuisine", style="width: 400px; height: 40px;", data-placeholder="Select cuisine...")
+			select.chzn-select.form-control.col-xs-12(multiple="true", name="allowedCuisine", style="height: 40px;", data-placeholder="Select cuisine...")
 				for item in allowedCuisine
 					option(value='#{item.searchValue}') #{item.description}
 				
 			br
-			select.chzn-select(multiple="true", name="allowedCourse", style="width: 400px; height: 40px;", data-placeholder="Select courses...")
+			select.chzn-select.form-control.col-xs-12(multiple="true", name="allowedCourse", style="height: 40px;", data-placeholder="Select courses...")
 				for item in allowedCourse
 					option(value='#{item.searchValue}') #{item.description}
 			br
-			select.chzn-select(multiple="true", name="allowedAllergy", style="width: 400px; height: 40px;", data-placeholder="Select allergy...")
+			select.chzn-select.form-control.col-xs-12(multiple="true", name="allowedAllergy", style="height: 40px;", data-placeholder="Select allergy...")
+				option(value='#{allowedAllergy[0].searchValue}') 
 				for item in allowedAllergy
 					option(value='#{item.searchValue}') #{item.shortDescription}
 		
 			br
-			select.chzn-select(multiple="true", name="allowedDiet", style="width: 400px; height: 40px;", data-placeholder="Select diet...")
+			select.chzn-select.form-control.col-xs-12(multiple="true", name="allowedDiet", style="height: 40px;", data-placeholder="Select diet...")
 				for item in allowedDiet
 					option(value='#{item.searchValue}') #{item.shortDescription}
 		
 			br
-			select.chzn-select.querySearchSelect(name="q", style="width: 400px; height: 40px;", data-placeholder="Select recipe...")
+			select.chzn-select.querySearchSelect.form-control.col-xs-12(name="q", style="height: 40px;", data-placeholder="Select recipe...")
 				if q 
+					option.querySearchOptions(value='') 
 					for item in q
-						option.querySearchOptions(value='#{item.id}') #{item.recipeName}	
+						option.querySearchOptions(value='#{item.id}', style="height: 29px;") #{item.recipeName}	
 			br
 			button.submit-btn.btn.btn-primary(type="submit") Submit Data
 
