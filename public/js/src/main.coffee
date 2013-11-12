@@ -13,7 +13,7 @@ $ ->
 
 		#recieve data to append to the DOM
 		socket.on 'yumKeyUpData', (data) ->
-			# console.log("data::::",data)
+			console.log("data::::",data)
 			console.log(data.matches)
 			matched = data.matches
 			console.log("matched::::",matched)
@@ -38,7 +38,7 @@ $ ->
 				if item.smallImageUrls[0]
 					recipeImg = "<img class='recipeImg' src=#{item.smallImageUrls[0]}></img>"
 				else
-					recipeImg = ""
+					recipeImg = "<img class='recipeImg' src='img/default-recipe.png'>"
 				$('#recipeRepo').append("<li class='matchedRecipe'>#{recipeImg}#{recipeNameDom}#{recipeSource}</li>")
 
 			
@@ -55,7 +55,7 @@ $ ->
 		
 		val = $(this).val()
 
-		if val.length <= 4 
+		if val.length <= 4
 			return
 		dataToYummly = {}
 

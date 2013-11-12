@@ -12,6 +12,7 @@
       console.log("socket connected to yummly");
       return socket.on('yumKeyUpData', function(data) {
         var item, matched, recipeImg, recipeNameDom, recipeSource, _i, _len;
+        console.log("data::::", data);
         console.log(data.matches);
         matched = data.matches;
         console.log("matched::::", matched);
@@ -26,7 +27,7 @@
           if (item.smallImageUrls[0]) {
             recipeImg = "<img class='recipeImg' src=" + item.smallImageUrls[0] + "></img>";
           } else {
-            recipeImg = "";
+            recipeImg = "<img class='recipeImg' src='img/default-recipe.png'>";
           }
           $('#recipeRepo').append("<li class='matchedRecipe'>" + recipeImg + recipeNameDom + recipeSource + "</li>");
         }

@@ -124,7 +124,7 @@
       function(cb) {
         var toRender;
         toRender = {
-          title: 'Veganizzm App'
+          title: 'Find Vegan Recipes'
         };
         return getMetaData(searchMetaParam.cuisine, function(err, data) {
           toRender.allowedCuisine = data;

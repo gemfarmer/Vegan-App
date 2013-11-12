@@ -61,7 +61,7 @@ module.exports = (req, res) ->
 				allowedCuisine : "&allowedCuisine[]="
 			}
 			parsedFormData = querystring.parse(formData)
-			console.log("formData::::::", parsedFormData)
+			# console.log("formData::::::", parsedFormData)
 
 			queryObj = {}
 			for param of parsedFormData
@@ -100,13 +100,10 @@ module.exports = (req, res) ->
 
 			yummlyUpdatedUrl = "http://api.yummly.com/v1/api/recipes?#{credentialKey}&q=#{query.q}#{joinedURL}"
 			console.log("yummlyUpdatedUrl::::", yummlyUpdatedUrl)
-			# console.log("finished URL",yummlyQUrl)
+
 			#Pull Yummly API
 			request yummlyUpdatedUrl, (error, response, body) ->
-				# console.log(body);
-				# data.object = yummlyObj = JSON.parse(body)
-				# data.query = query.q
-				# console.log("YUM", yummlyObj)
+
 				yummlyObj = JSON.parse(body)
 
 				socket.emit('yumKeyUpData',yummlyObj)
@@ -140,7 +137,7 @@ module.exports = (req, res) ->
 	tasks = [
 		(cb) ->
 			toRender = {
-				title: 'Veganizzm App'
+				title: 'Find Vegan Recipes'
 			}
 			getMetaData searchMetaParam.cuisine, (err, data) ->
 				toRender.allowedCuisine = data

@@ -1,8 +1,8 @@
 extends index
 
 block afterNav
-	div.container#searchEngine
-		h1= title
+	.jumbotron#searchEngine
+		h3= title
 		p A tool for 
 			a(href="http://veganizzm.com/") Veganizzm.com
 		p Recipe search powered by 
@@ -35,12 +35,11 @@ block afterNav
 			br
 			button.submit-btn.btn.btn-primary(type="submit") Submit Data
 
-			div.collectionDiv
-	div.containter#recipeContainer
-		h2 Matched Recipes
+	#recipeContainer
+		h2#matchedTitle Matched Recipes
 		hr
 		h4#matchedResults 0 Matched Results
-		ul#recipeRepo Recipes
+		ul#recipeRepo
 			for item in q
 				li.matchedRecipe
 					if item.smallImageUrls[0]

@@ -9,10 +9,12 @@ body {
 
 #recipeContainer {
 	text-align: center;
-	background-color: yellow;
+	background-color: #ecf0f1;
 	float: right;
 	/*display: inline-block;*/
 	width: 50%;
+	/*border-radius: 15px;*/
+
 }
 #searchEngine {
 	/*text-align: center;*/
@@ -20,23 +22,32 @@ body {
 	width: 50%;
 	position: fixed;
 }
-/*ul.chosen-choices {
-	margin-bottom: 5px;
-	padding: 10px;
-}*/
 
 #recipeRepo {
 	list-style-type: none;
-	text-align: left
+	text-align: left;
+	margin-left: 0;
+	padding-left: 5px;
 }
 .matchedRecipe{
-	background-color: peachpuff;
+	/*background-color: #1abc9c;*/
 	margin: 1px;
-	height: 60px;
+	height: 100px;
 	padding: 2px;
+	margin-left: 0;
 }
 .recipeImg{
-	float: right;
-	height: 50px;
+	float: left;
+	height: 80px;
+	padding-right: 5px;
 
+}
+#matchedTitle {
+
+	text-align: center;
+	/*display: inline-block;*/
+	width: 100%;
+}
+.chosen-container {
+	margin-bottom: 3px;
 }
