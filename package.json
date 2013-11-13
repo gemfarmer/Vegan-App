@@ -17,7 +17,8 @@
     "cake": "~0.1.1",
     "request": "~2.27.0",
     "async": "~0.2.9",
-    "socket.io": "~0.9.16"
+    "socket.io": "~0.9.16",
+    "underscore": "~1.5.2"
   },
   "engines": {
     "node": "0.10.x",

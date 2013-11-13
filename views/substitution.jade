@@ -2,9 +2,8 @@ extends index
 
 block afterNav
 	div.jumbotron.row-fluid.page-header.col-xs-12.col-sm-offset-3.col-sm-6
-		h3#substituteHeader Enter a substitute: 
-		for item in q
-			h2 #{item.nonVegan.item}
+		h3#substituteHeader Enter a substitute:
+
 		form#substitution-form.col-xs-12
 			
 			select.chzn-select.querySearchSelect.form-control(name="q", data-placeholder="Enter non-vegan item...")	
