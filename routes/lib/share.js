@@ -21,7 +21,7 @@
   console.log("Subsittute", Substitute);
 
   module.exports = function(io) {
-    var share;
+    var objectToRender, share;
     io.sockets.on('connection', function(socket) {
       return socket.on('substitute-form', function(data) {
         var parsedData, substitute;
@@ -37,8 +37,12 @@
         });
       });
     });
+    objectToRender = {
+      units: ["cups", "tbsp", "tsp", "pinch", "links", "patty", "stick", "lbs"],
+      qty: [.5, .75, 1, 2, 3, 4, 5, 6]
+    };
     share = function(req, res) {
-      return res.render('share');
+      return res.render('share', objectToRender);
     };
     return {
       share: share

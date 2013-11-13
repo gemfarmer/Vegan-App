@@ -20,7 +20,7 @@ $ ->
 
 			$('#substitutes-repo').append(inputFieldContainer)
 			$('.current').append(sizingDiv+removeFieldButton)
-			$('.substitute-field').append(inputField+inputTextArea+inputQty+inputUnits)
+			$('.substitute-field').append(inputField+inputUnits+inputQty+inputTextArea)
 			$('.substitute-field').removeClass('substitute-field')
 			$('.current').removeClass('current')
 		# remove  added field

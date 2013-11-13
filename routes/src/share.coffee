@@ -58,9 +58,14 @@ module.exports = (io) ->
 				else
 					console.log("sent to database:",data)	
 
+	objectToRender = {
+		units: ["cups", "tbsp", "tsp", "pinch", "links", "patty","stick", "lbs"]
+		qty: [.5,.75,1,2,3,4,5,6]
+	}
+
 	share = (req, res) ->
 		#render jade file		
-		res.render 'share'
+		res.render 'share', objectToRender
 
 	return {
 		share: share

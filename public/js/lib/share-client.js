@@ -21,7 +21,7 @@
         inputUnits = "<input class='form-control col-xs-3' type='text' name='substitute-units' placeholder='Units'></input>";
         $('#substitutes-repo').append(inputFieldContainer);
         $('.current').append(sizingDiv + removeFieldButton);
-        $('.substitute-field').append(inputField + inputTextArea + inputQty + inputUnits);
+        $('.substitute-field').append(inputField + inputUnits + inputQty + inputTextArea);
         $('.substitute-field').removeClass('substitute-field');
         return $('.current').removeClass('current');
       });

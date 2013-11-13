@@ -20,16 +20,25 @@ block afterNav
 					label.form-label(for='non-vegan-item') Vegan Item
 					div.col-xs-12
 						input.form-control(type='text', name='non-vegan-item', placeholder='Non-Vegan Item', autofocus)
-						input.form-control(type='text', name='non-vegan-qty', placeholder='Quantity', autofocus)
-						input.form-control(type='text', name='non-vegan-units', placeholder='Unit of Measurement', autofocus)
+						//- input.form-control(type='text', name='non-vegan-units', placeholder='Unit of Measurement', autofocus)
+						//- input.form-control(type='text', name='non-vegan-qty', placeholder='Quantity', autofocus)
+						
+						select.subs.chzn-select.form-control#qty(name="non-vegan-units", style="height: 24px;", data-placeholder="Units...")
+							option(value='',)
+							for item in units
+								option.col-xs-6(value='#{item}') #{item}
+						select.subs.chzn-select.form-control#qty(name="non-vegan-qty", style="height: 24px;", data-placeholder="Quanity...")
+							option(value='', )
+							for item in qty
+								option.col-xs-6(value='#{item}') #{item}
 
 
 				div.form-group.substitute-inputs#original
 					label.form-label(for='vegan-substitute') Vegan Substitute
 					#substitute-field.col-xs-10
 						input.form-control.col-xs-6(type='text', name='vegan-substitute', placeholder='Vegan Substitute')
-						input.form-control.col-xs-3(type='text', name='substitute-qty', placeholder='Quantity')
 						input.form-control.col-xs-3(type='text', name='substitute-units', placeholder='Units')
+						input.form-control.col-xs-3(type='text', name='substitute-qty', placeholder='Quantity')
 
 						textarea.form-control(type='text', name='substitute-description', placeholder='Notes')
 					button.btn.button-default#add-input-field.col-xs-2 +
