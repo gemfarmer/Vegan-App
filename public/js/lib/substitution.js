@@ -5,13 +5,32 @@
   socket = io.connect();
 
   $(function() {
-    return $('#substitution-form').on('submit', '.substitution-submit', function(e) {
-      var formData;
-      console.log();
-      e.preventDefault();
-      formData = $(this).serialize();
-      console.log("formData", formData);
-      return $('#substitute-results').append;
+    $('#substitute-params').hide();
+    return socket.on('connect', function() {
+      socket.on('rendersubs', function(data) {
+        var objFromDataBase;
+        objFromDataBase = data;
+        return console.log(objFromDataBase);
+      });
+      $('#substitution-form').on('submit', '.substitution-submit', function(e) {
+        var formData;
+        console.log();
+        e.preventDefault();
+        formData = $(this).serialize();
+        console.log("formData", formData);
+        return $('#substitute-results').append('<li class="substitute-results">Hi</li>');
+      });
+      return $('#substitution-form').on('change', function(e) {
+        var val;
+        e.preventDefault();
+        val = $(this).serialize();
+        console.log("val", val);
+        socket.emit('requestparams', val);
+        $('#substitute-params').show();
+        return socket.on('sendparams', function(data) {
+          return console.log(data);
+        });
+      });
     });
   });
 

@@ -6,11 +6,11 @@ block afterNav
 
 		form#substitution-form.col-xs-12
 			
-			select.chzn-select.querySearchSelect.form-control(name="q", data-placeholder="Enter non-vegan item...")	
+			select.chzn-select.querySearchSelect.form-control(name="item", data-placeholder="Enter non-vegan item...")	
 				option.querySearchOptions(value='', data-placeholder="Enter non-vegan item...")
 				for item in q
 					option.querySearchOptions(value='#{item.nonVegan.item}', data-placeholder="Enter non-vegan item...") #{item.nonVegan.item}
-			div
+			div#substitute-params
 				select.chzn-select.form-control(name="units", style="height: 24px;", data-placeholder="Units...")
 					option(value='' data-placeholder="units")
 					for item in q
@@ -20,7 +20,7 @@ block afterNav
 					for item in q
 						option.col-xs-6(value='#{item.nonVegan.qty}') #{item.nonVegan.qty}
 			button.btn.btn-success.substitution-submit(type="submit") Translate
-	div#substitute-results
+	ul#substitute-results
 				//- input.form-control.col-xs-4(style="height: 24px", name="qty", data-placeholder="Quantity") 
 
 	//- div.row-fluid.col-xs-12.col-sm-12

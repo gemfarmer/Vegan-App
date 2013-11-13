@@ -32,7 +32,9 @@
         substitute = substitutes[_i];
         substitute['non-vegan-qty'];
         mappedQty = _.map(substitute['substitute-qty'], function(num) {
-          return Number(num);
+          if (typeof num === String) {
+            return Number(num);
+          }
         });
         ratio = _.map(mappedQty, function(num) {
           return num / substitute['non-vegan-qty'];
@@ -54,10 +56,9 @@
         substituteArray.push(item);
         console.log("obj", item);
       }
-      substitutionObject = {
+      return substitutionObject = {
         q: substituteArray
       };
-      return console.log(substitutionObject);
     };
     findSubstitutes = function() {
       return Substitute.find({}, function(err, substitutes) {
@@ -69,9 +70,23 @@
       });
     };
     findSubstitutes();
+    io.sockets.on('connection', function(socket) {
+      socket.on('requestparams', function(dataFromClient) {
+        var val;
+        console.log("HERRERERE");
+        val = querystring.parse(dataFromClient);
+        console.log("val::::", val);
+        return Substitute.find({
+          'non-vegan-item': val.item
+        }, function(err, databaseItem) {
+          socket.emit('sendparams', databaseItem);
+          return console.log(databaseItem);
+        });
+      });
+      return socket.emit('rendersubs', substitutionObject);
+    });
     return {
       index: function(req, res) {
-        console.log(findSubstitutes());
         return res.render('substitution.jade', substitutionObject);
       }
     };

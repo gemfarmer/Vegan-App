@@ -6,15 +6,13 @@ request = require 'request'
 async = require 'async'
 mongoose = require 'mongoose'
 querystring = require('querystring')
-
 _ = require 'underscore'
 
 #access mongodb Substitute Model
 Substitute = require('./../../models/lib/mongodb.js').Substitute
 
-
+# define object to be altered, then rendered
 substitutionObject = {}
-
 
 #export
 module.exports = (io) ->
@@ -25,7 +23,8 @@ module.exports = (io) ->
 			# console.log("substitute",substitute)
 			substitute['non-vegan-qty']
 			mappedQty = _.map substitute['substitute-qty'], (num) -> 
-				return Number(num)
+				if typeof(num) == String
+					return Number(num)
 			# console.log("mappedQty",mappedQty)
 			ratio = _.map mappedQty, (num) ->
 				return num / substitute['non-vegan-qty']
@@ -49,7 +48,7 @@ module.exports = (io) ->
 		substitutionObject = {
 			q: substituteArray
 		}
-		console.log(substitutionObject)
+		# console.log(substitutionObject)
 
 	findSubstitutes = () ->
 		Substitute.find {}, (err, substitutes) ->
@@ -60,9 +59,21 @@ module.exports = (io) ->
 				getSubObj(substitutes)
 
 	findSubstitutes()
+
+	io.sockets.on 'connection', (socket) ->
+
+		socket.on 'requestparams', (dataFromClient) ->
+			console.log("HERRERERE")
+			val = querystring.parse(dataFromClient)
+			console.log("val::::", val)
+
+			Substitute.find {'non-vegan-item': val.item}, (err, databaseItem) ->
+				socket.emit 'sendparams', databaseItem
+				console.log(databaseItem)
+		socket.emit 'rendersubs', substitutionObject
 	{
 		index: (req, res) ->
-			console.log(findSubstitutes())
+			# console.log(findSubstitutes())
 			res.render 'substitution.jade', substitutionObject
 	}
 
