@@ -16,7 +16,6 @@
         console.log(data.matches);
         matched = data.matches;
         console.log("matched::::", matched);
-        $('.querySearchSelect').empty();
         $('#recipeRepo').empty();
         for (_i = 0, _len = matched.length; _i < _len; _i++) {
           item = matched[_i];

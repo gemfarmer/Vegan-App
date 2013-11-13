@@ -1,7 +1,7 @@
 extends index
 
 block afterNav
-	div.jumbotron.row-fluid.page-header.col-xs-12.col-sm-offset-3.col-sm-6
+	div#subEngine.jumbotron.row-fluid.page-header
 		h3#substituteHeader Enter a substitute:
 
 		form#substitution-form.col-xs-12
@@ -19,9 +19,11 @@ block afterNav
 					option(value='', data-placeholder="qty")
 					for item in q
 						option.col-xs-6(value='#{item.nonVegan.qty}') #{item.nonVegan.qty}
-			button.btn.btn-success.substitution-submit(type="submit") Translate
-	div#substitute-results.jumbotron.row-fluid.page-header.col-xs-12.col-sm-offset-3.col-sm-6
 
+
+			button.btn.btn-success.substitution-submit(type="submit") Translate
+	h2#substitute-results-header.jumbotron.row-fluid.page-header Substitutes
+		#substitute-results
 
 				//- input.form-control.col-xs-4(style="height: 24px", name="qty", data-placeholder="Quantity") 
 

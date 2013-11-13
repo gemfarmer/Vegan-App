@@ -19,25 +19,10 @@ $ ->
 			console.log("matched::::",matched)
 			
 			#empty query field
-			$('.querySearchSelect').empty()
+			# $('.querySearchSelect').empty()
 			#empty dom
 			$('#recipeRepo').empty()
-			# $('.chosen-search input').autocomplete {
-			# 	source: ( request, response ) ->
-			# 		$.ajax({
-			# 			url: "/change/name/autocomplete/"+request.term+"/",
-			# 			dataType: "json",
-			# 			beforeSend: () ->
-			# 				$('ul.chosen-results').empty();
-			# 			success: ( data ) ->
-			# 				response( $.map( data, ( item ) ->
-			# 					$('ul.chosen-results').append('<li class="active-result">' + item.name + '</li>');
-			# 				));
-					
-			# 		});
 			
-			# }
-
 			for item in matched
 				# console.log(item.recipeName)
 				# joinedRecipeItem = (item.recipeName).split(" ").join("+")

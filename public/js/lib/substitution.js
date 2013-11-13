@@ -25,6 +25,7 @@
         return socket.on('sendparams', function(data) {
           var item, _i, _len;
           console.log("sendparms:::", data);
+          $('.subs').empty();
           for (_i = 0, _len = data.length; _i < _len; _i++) {
             item = data[_i];
             if (item['non-vegan-units'] || item['non-vegan-qty']) {

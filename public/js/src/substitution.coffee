@@ -19,7 +19,8 @@ $ ->
 			formData = $(this).serialize()
 			console.log("formData", formData)
 
-					
+		
+		
 
 		$('#substitution-form').on 'change', (e) ->
 			e.preventDefault()
@@ -35,8 +36,11 @@ $ ->
 
 				# $('#substitute-params select').empty
 				console.log("sendparms:::",data)
+				$('.subs').empty()
 				for item in data
+
 					if item['non-vegan-units'] or item['non-vegan-qty']
+
 						$('#substitute-params #units').append("<option data-placeholder='units' value=#{item['non-vegan-units']}>#{item['non-vegan-units']}</option>")
 						$('#substitute-params #qty').append("<option data-placeholder='qty' value=#{item['non-vegan-qty']}>#{item['non-vegan-qty']}</option>")
 						$('#units').trigger("chosen:updated");
