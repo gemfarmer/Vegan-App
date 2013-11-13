@@ -22,7 +22,21 @@ $ ->
 			$('.querySearchSelect').empty()
 			#empty dom
 			$('#recipeRepo').empty()
-
+			$('.chosen-search input').autocomplete {
+				source: ( request, response ) ->
+					$.ajax({
+						url: "/change/name/autocomplete/"+request.term+"/",
+						dataType: "json",
+						beforeSend: () ->
+							$('ul.chosen-results').empty();
+						success: ( data ) ->
+							response( $.map( data, ( item ) ->
+								$('ul.chosen-results').append('<li class="active-result">' + item.name + '</li>');
+							));
+					
+					});
+			
+			}
 
 			for item in matched
 				# console.log(item.recipeName)
@@ -30,7 +44,7 @@ $ ->
 				$('.querySearchSelect').append("<option class='querySearchOptions' value=#{item.id}>#{item.recipeName}</option>")
 
 				#update chosen fields
-				$('.querySearchSelect').trigger("chosen:updated");
+				# $('.querySearchSelect').trigger("chosen:updated");
 
 				#update matched recipe area
 				recipeNameDom = "<div value='#{item.id}' class='recipeName'>#{item.recipeName}</div>"

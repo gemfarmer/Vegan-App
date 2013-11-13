@@ -11,12 +11,12 @@ _ = require 'underscore'
 #access mongodb Substitute Model
 Substitute = require('./../../models/lib/mongodb.js').Substitute
 
-# define object to be altered, then rendered
-substitutionObject = {}
 
 #export
 module.exports = (io) ->
 	objectToRender = {q: "sdf"}
+
+	# take object from database. puts in a DOM-readable form
 	getSubObj = (substitutes) ->
 		substituteArray = []
 		for substitute in substitutes
@@ -45,38 +45,57 @@ module.exports = (io) ->
 			}
 			substituteArray.push(item)
 			console.log("obj",item)
-		substitutionObject = {
+		return {
 			q: substituteArray
 		}
 		# console.log(substitutionObject)
 
-	findSubstitutes = () ->
+	#finds object in database
+	findSubstitutes = (callback) ->
 		Substitute.find {}, (err, substitutes) ->
 			if(err)
 				console.log('ERROR')
 			else
 				# console.log("substitution",substitutes)
-				getSubObj(substitutes)
+				callback(getSubObj(substitutes))
 
-	findSubstitutes()
+	
 
 	io.sockets.on 'connection', (socket) ->
 
+		#receive form values from the client
 		socket.on 'requestparams', (dataFromClient) ->
 			console.log("HERRERERE")
 			val = querystring.parse(dataFromClient)
 			console.log("val::::", val)
+			
+			paramsForClient = {}
+			if val.item
+				paramsForClient['non-vegan-item'] = val.item
+			if val.units
+				paramsForClient['non-vegan-units'] = val.units
+			if val.qty
+				paramsForClient['non-vegan-qty'] = val.qty
 
-			Substitute.find {'non-vegan-item': val.item}, (err, databaseItem) ->
+
+
+			#request matching data substitues collection in database
+			Substitute.find paramsForClient, (err, databaseItem) ->
+
+				#send matching data to client
 				socket.emit 'sendparams', databaseItem
 				console.log(databaseItem)
-		socket.emit 'rendersubs', substitutionObject
+
+
+		# socket.emit 'rendersubs', substitutionObject
 	{
 		index: (req, res) ->
+			findSubstitutes (substitutionObject) ->
+				res.render 'substitution.jade', substitutionObject
 			# console.log(findSubstitutes())
-			res.render 'substitution.jade', substitutionObject
+			
 	}
-	
+
 # substitutionObject = {
 # 	q : [
 # 		{

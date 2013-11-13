@@ -18,10 +18,25 @@
         console.log("matched::::", matched);
         $('.querySearchSelect').empty();
         $('#recipeRepo').empty();
+        $('.chosen-search input').autocomplete({
+          source: function(request, response) {
+            return $.ajax({
+              url: "/change/name/autocomplete/" + request.term + "/",
+              dataType: "json",
+              beforeSend: function() {
+                return $('ul.chosen-results').empty();
+              },
+              success: function(data) {
+                return response($.map(data, function(item) {
+                  return $('ul.chosen-results').append('<li class="active-result">' + item.name + '</li>');
+                }));
+              }
+            });
+          }
+        });
         for (_i = 0, _len = matched.length; _i < _len; _i++) {
           item = matched[_i];
           $('.querySearchSelect').append("<option class='querySearchOptions' value=" + item.id + ">" + item.recipeName + "</option>");
-          $('.querySearchSelect').trigger("chosen:updated");
           recipeNameDom = "<div value='" + item.id + "' class='recipeName'>" + item.recipeName + "</div>";
           recipeSource = "<div class='recipeSource'>Source: " + item.sourceDisplayName + "</div>";
           if (item.smallImageUrls[0]) {

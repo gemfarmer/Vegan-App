@@ -20,7 +20,9 @@ block afterNav
 					for item in q
 						option.col-xs-6(value='#{item.nonVegan.qty}') #{item.nonVegan.qty}
 			button.btn.btn-success.substitution-submit(type="submit") Translate
-	ul#substitute-results
+	div#substitute-results.jumbotron.row-fluid.page-header.col-xs-12.col-sm-offset-3.col-sm-6
+
+
 				//- input.form-control.col-xs-4(style="height: 24px", name="qty", data-placeholder="Quantity") 
 
 	//- div.row-fluid.col-xs-12.col-sm-12

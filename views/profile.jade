@@ -13,28 +13,29 @@ block metas
 
 block afterNav
    div.page-header.jumbotron.col-xs-12.col-sm-offset-3.col-sm-6
-      h2 Your Profile 
+      h2 Your Settings
+         a.btn.btn-warning.pull-right(href='/edit') Edit
       div.row-fluid#profile-form
          form.form-horizontal(id='userInfo', action='', method='POST')
             div.control-group
                label.control-label(for='name[first]') First Name
-               div.form-control
+               div
                   span.input-large.uneditable-input #{user.name.first}
             div.control-group
                label.control-label(for='name[last]') Last Name
-               div.form-control
+               div
                   span.input-large.uneditable-input #{user.name.last}
             div.control-group
                label.control-label(for='email') Email
-               div.form-control
+               div
                   span.input-large.uneditable-input #{user.email}
             div.control-group
                label.control-label(for='username') Username
-               div.form-control
+               div
                   span.input-large.uneditable-input #{user.username}
          br
-         div.button
-            a(href='/logout') Logout
+         a.btn.btn-primary(href='/logout') Logout
+
 
    div.row-fluid
 

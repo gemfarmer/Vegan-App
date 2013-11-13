@@ -5,20 +5,15 @@
   socket = io.connect();
 
   $(function() {
+    $(".chzn-select").chosen();
     $('#substitute-params').hide();
     return socket.on('connect', function() {
-      socket.on('rendersubs', function(data) {
-        var objFromDataBase;
-        objFromDataBase = data;
-        return console.log(objFromDataBase);
-      });
       $('#substitution-form').on('click', '.substitution-submit', function(e) {
         var formData;
         console.log();
         e.preventDefault();
         formData = $(this).serialize();
-        console.log("formData", formData);
-        return $('#substitute-results').append('<li class="substitute-results">Hi</li>');
+        return console.log("formData", formData);
       });
       return $('#substitution-form').on('change', function(e) {
         var val;
@@ -29,15 +24,38 @@
         $('#substitute-params').show();
         return socket.on('sendparams', function(data) {
           var item, _i, _len;
-          console.log(data);
+          console.log("sendparms:::", data);
           for (_i = 0, _len = data.length; _i < _len; _i++) {
             item = data[_i];
             if (item['non-vegan-units'] || item['non-vegan-qty']) {
-              $('#substitute-params #units').append("<option value=" + item['non-vegan-units'] + ">" + item['non-vegan-units'] + "</option>");
-              $('#substitute-params #qty').append("<option value=" + item['non-vegan-qty'] + ">" + item['non-vegan-qty'] + "</option>");
+              $('#substitute-params #units').append("<option data-placeholder='units' value=" + item['non-vegan-units'] + ">" + item['non-vegan-units'] + "</option>");
+              $('#substitute-params #qty').append("<option data-placeholder='qty' value=" + item['non-vegan-qty'] + ">" + item['non-vegan-qty'] + "</option>");
+              $('#units').trigger("chosen:updated");
+              $('#qty').trigger("chosen:updated");
             }
           }
-          return $('.subs').trigger("chosen:updated");
+          return $(document).on('click', '.substitution-submit', function(e) {
+            var MatchingDescription, MatchingItems, MatchingQty, MatchingRepo, MatchingUnits, NonItems, NonQty, NonRepo, NonUnits, _j, _len1;
+            e.preventDefault();
+            for (_j = 0, _len1 = data.length; _j < _len1; _j++) {
+              item = data[_j];
+              NonItems = "<li>" + item['non-vegan-item'] + "</li>";
+              NonUnits = "<li>" + item['non-vegan-units'] + "</li>";
+              NonQty = "<li>" + item['non-vegan-qty'] + "</li>";
+              NonRepo = "<ul class='col-xs-12' id='nonRepo'>NonVeganItem</ul>";
+              for (item in item['vegan-substitute']) {
+                MatchingItems = "<li>" + item['vegan-substitute'] + "</li>";
+                MatchingUnits = "<li>" + item['substitute-units'] + "</li>";
+                MatchingQty = "<li>" + item['substitute-qty'] + "</li>";
+                MatchingDescription = "<li>" + item['substitute-description'] + "</li>";
+                MatchingRepo = "<ul class='col-xs-12' id='MatchingRepo'>Vegan Items</ul>";
+              }
+            }
+            $('#substitute-results').empty();
+            $('#substitute-results').append(NonRepo + MatchingRepo);
+            $('#nonRepo').append(NonItems + NonUnits + NonQty);
+            return $('#MatchingRepo').append(MatchingItems + MatchingUnits + MatchingQty + MatchingDescription);
+          });
         });
       });
     });
