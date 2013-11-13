@@ -7,6 +7,10 @@ async = require 'async'
 mongoose = require 'mongoose'
 querystring = require('querystring')
 
+#access mongodb Substitute Model
+Substitute = require('./../../models/lib/mongodb.js').Substitute
+
+
 substitutionObject = {
 	q : [
 		{
@@ -37,26 +41,61 @@ substitutionObject = {
 		}
 	]
 }
+
+vard = [ 
+	{ 
+		'non-vegan-item': '',
+		'non-vegan-qty': null,
+		'non-vegan-units': 'a',
+		'vegan-substitute': '',
+		'substitute-qty': 5,
+		'substitute-units': '',
+		'substitute-description': '',
+		'_id' : '5282d369d1caf26407000001'
+		'__v': 0 
+	}
+]	
+		
+
 console.log(substitutionObject)
 
 # console.log(substitutionObject)
 module.exports = (io) ->
+
+	Substitute.find (err, substitutes) ->
+		if(err)
+			console.log('ERROR')
+		else
+			console.log('substitutes', substitutes);
+			substituteArray = []
+
+			for substitute in substitutes
+				# console.log("substitute",substitute)
+				item = {
+					nonVegan: {
+						item: substitute['non-vegan-item']
+						units: substitute['non-vegan-units']
+						qty: substitute['non-vegan-qty']
+					}
+					vegan: {
+						items: substitute['vegan-substitute']
+						units: substitute['substitute-units']
+						qty: substitute['substitute-qty']
+						notes: substitute['substitute-description']
+					}
+				}
+				substituteArray.push(item)
+				console.log("obj",item)
+			console.log("substituteArray", substituteArray)
+
+
+
+
+
+
+
 	{
 		index: (req, res) ->
 			res.render 'substitution', substitutionObject
 	}
-	# 	console.log("submittedInfo", submittedInfo)
-	# recipeSearch = new RecipeSearch(submittedInfo)
-	# recipeSearch.save (err,data) ->
-	# 	console.log("sent to database:",data)
-	# 	return
-	# queryPrefix = {
-	# 	# q : "&q="
-	# 	allowedCourse : "&allowedCourse[]="
-	# 	allowedAllergy : "&allowedAllergy[]="
-	# 	allowedDiet : "&allowedDiet[]="
-	# 	allowedCuisine : "&allowedCuisine[]="
-	# }
-	# console.log("hello")
-
-
+	

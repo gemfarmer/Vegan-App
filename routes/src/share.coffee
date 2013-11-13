@@ -6,15 +6,11 @@ async = require 'async'
 mongoose = require 'mongoose'
 querystring = require('querystring')
 
+#access mongodb Substitute Model
+Substitute = require('./../../models/lib/mongodb.js').Substitute
 
-# #include server module from app.js
-# server = require('./../../lib/app.js').server
+console.log("Subsittute",Substitute)
 
-# #require socket.io module
-# socketio = require 'socket.io'
-
-# #Start the web socket server
-# io = socketio.listen(server);
 
 module.exports = (io) ->
 	io.sockets.on 'connection', (socket) ->
@@ -23,6 +19,15 @@ module.exports = (io) ->
 			console.log(data)
 			parsedData = querystring.parse(data)
 			console.log("data::::", parsedData)
+			
+			substitute = new Substitute(parsedData)
+			console.log(substitute)
+			substitute.save (err,data) ->
+				if err
+					console.log(err)
+				else
+					console.log("sent to database:",data)
+			return
 
 	share = (req, res) ->
 

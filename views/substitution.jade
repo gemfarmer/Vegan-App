@@ -20,7 +20,7 @@ block afterNav
 					option(value='' data-placeholder="qty")
 					for item in q
 						option.col-xs-6(value='#{item.nonVegan.qty}') #{item.nonVegan.qty}
-			button.btn.btn-inverse.substitution-submit(type="submit") Translate
+			button.btn.btn-success.substitution-submit(type="submit") Translate
 	div#substitute-results
 				//- input.form-control.col-xs-4(style="height: 24px", name="qty", data-placeholder="Quantity") 
 
