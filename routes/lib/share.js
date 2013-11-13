@@ -14,8 +14,22 @@
 
   querystring = require('querystring');
 
-  module.exports = function(req, res) {
-    return res.render('share');
+  module.exports = function(io) {
+    var share;
+    io.sockets.on('connection', function(socket) {
+      return socket.on('substitute-form', function(data) {
+        var parsedData;
+        console.log(data);
+        parsedData = querystring.parse(data);
+        return console.log("data::::", parsedData);
+      });
+    });
+    share = function(req, res) {
+      return res.render('share');
+    };
+    return {
+      share: share
+    };
   };
 
 }).call(this);

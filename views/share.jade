@@ -13,8 +13,9 @@ block metas
 
 block afterNav
 	div.row-fluid.jumbotron.page-header.col-xs-12.col-sm-offset-3.col-sm-6
-		form.form-horizontal
-			.fieldset#substitutes-repo
+		h3#substitutesHeading Vegan Substitute Translator
+		form.form-horizontal#share-form
+			.fieldset#substitutes-repo 
 				div.form-group
 					label.form-label(for='non-vegan-item') Vegan Item
 					div.col-xs-12
@@ -30,11 +31,11 @@ block afterNav
 						input.form-control.col-xs-3(type='text', name='substitute-qty', placeholder='Quantity')
 						input.form-control.col-xs-3(type='text', name='substitute-units', placeholder='Units')
 
-						textarea.form-control(type='text', name='substitute-description', placeholder='Description')
+						textarea.form-control(type='text', name='substitute-description', placeholder='Notes')
 					button.btn.button-default#add-input-field.col-xs-2 +
 						//- input.form-control.add(type='text', name='vegan-substitute', placeholder='Vegan Substitute')
 			div.form-actions.col-xs-12
-				a.btn.btn-default Submit Substitute		
+				a.btn.btn-default#submit-substitute Submit Substitute		
 			
 
 

@@ -16,6 +16,22 @@ querystring = require('querystring')
 # #Start the web socket server
 # io = socketio.listen(server);
 
+module.exports = (io) ->
+	io.sockets.on 'connection', (socket) ->
 
-module.exports = (req, res) ->
-	res.render 'share'
+		socket.on 'substitute-form', (data) ->
+			console.log(data)
+			parsedData = querystring.parse(data)
+			console.log("data::::", parsedData)
+
+	share = (req, res) ->
+
+		
+	
+		#render jade file		
+		res.render 'share'
+
+	{
+		share: share
+	}
+
