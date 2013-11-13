@@ -12,7 +12,7 @@
         objFromDataBase = data;
         return console.log(objFromDataBase);
       });
-      $('#substitution-form').on('submit', '.substitution-submit', function(e) {
+      $('#substitution-form').on('click', '.substitution-submit', function(e) {
         var formData;
         console.log();
         e.preventDefault();
@@ -28,7 +28,16 @@
         socket.emit('requestparams', val);
         $('#substitute-params').show();
         return socket.on('sendparams', function(data) {
-          return console.log(data);
+          var item, _i, _len;
+          console.log(data);
+          for (_i = 0, _len = data.length; _i < _len; _i++) {
+            item = data[_i];
+            if (item['non-vegan-units'] || item['non-vegan-qty']) {
+              $('#substitute-params #units').append("<option value=" + item['non-vegan-units'] + ">" + item['non-vegan-units'] + "</option>");
+              $('#substitute-params #qty').append("<option value=" + item['non-vegan-qty'] + ">" + item['non-vegan-qty'] + "</option>");
+            }
+          }
+          return $('.subs').trigger("chosen:updated");
         });
       });
     });

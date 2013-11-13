@@ -11,12 +11,12 @@ block afterNav
 				for item in q
 					option.querySearchOptions(value='#{item.nonVegan.item}', data-placeholder="Enter non-vegan item...") #{item.nonVegan.item}
 			div#substitute-params
-				select.chzn-select.form-control(name="units", style="height: 24px;", data-placeholder="Units...")
-					option(value='' data-placeholder="units")
+				select.subs.chzn-select.form-control#units(name="units", style="height: 24px;", data-placeholder="Units...")
+					option(value='', data-placeholder="units")
 					for item in q
 						option.col-xs-6(value='#{item.nonVegan.units}') #{item.nonVegan.units}
-				select.chzn-select.form-control(name="qty", style="height: 24px;", data-placeholder="Quanity...")
-					option(value='' data-placeholder="qty")
+				select.subs.chzn-select.form-control#qty(name="qty", style="height: 24px;", data-placeholder="Quanity...")
+					option(value='', data-placeholder="qty")
 					for item in q
 						option.col-xs-6(value='#{item.nonVegan.qty}') #{item.nonVegan.qty}
 			button.btn.btn-success.substitution-submit(type="submit") Translate

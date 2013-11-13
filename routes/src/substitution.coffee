@@ -76,7 +76,7 @@ module.exports = (io) ->
 			# console.log(findSubstitutes())
 			res.render 'substitution.jade', substitutionObject
 	}
-
+	
 # substitutionObject = {
 # 	q : [
 # 		{
