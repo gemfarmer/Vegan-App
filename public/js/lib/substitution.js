@@ -36,26 +36,35 @@
             }
           }
           return $(document).on('click', '.substitution-submit', function(e) {
-            var MatchingDescription, MatchingItems, MatchingQty, MatchingRepo, MatchingUnits, NonItems, NonQty, NonRepo, NonUnits, _j, _len1;
+            var dataDescription, dataForRow, dataItem, dataQty, dataUnits, itemset, newArray, newRow, vegDescription, vegItems, vegQty, vegUnits, _j, _k, _len1, _len2, _results;
             e.preventDefault();
+            console.log("daat", data);
+            $('#substitute-results').empty();
+            _results = [];
             for (_j = 0, _len1 = data.length; _j < _len1; _j++) {
               item = data[_j];
-              NonItems = "<li>" + item['non-vegan-item'] + "</li>";
-              NonUnits = "<li>" + item['non-vegan-units'] + "</li>";
-              NonQty = "<li>" + item['non-vegan-qty'] + "</li>";
-              NonRepo = "<ul class='col-xs-12' id='nonRepo'>NonVeganItem</ul>";
-              for (item in item['vegan-substitute']) {
-                MatchingItems = "<li>" + item['vegan-substitute'] + "</li>";
-                MatchingUnits = "<li>" + item['substitute-units'] + "</li>";
-                MatchingQty = "<li>" + item['substitute-qty'] + "</li>";
-                MatchingDescription = "<li>" + item['substitute-description'] + "</li>";
-                MatchingRepo = "<ul class='col-xs-12' id='MatchingRepo'>Vegan Items</ul>";
+              $('#NonItem').text(item['non-vegan-item']);
+              $('#NonQty').text(item['non-vegan-qty']);
+              $('#NonUnits').text(item['non-vegan-units']);
+              vegItems = item['vegan-substitute'];
+              vegUnits = item['substitute-units'];
+              vegQty = item['substitute-qty'];
+              vegDescription = item['substitute-description'];
+              newArray = _.zip(vegItems, vegUnits, vegQty, vegDescription);
+              console.log(newArray);
+              for (_k = 0, _len2 = newArray.length; _k < _len2; _k++) {
+                itemset = newArray[_k];
+                console.log("itemset", itemset);
+                dataItem = "<td>" + itemset[0] + "</td>";
+                dataUnits = "<td>" + itemset[1] + "</td>";
+                dataQty = "<td>" + itemset[2] + "</td>";
+                dataDescription = "<td>" + itemset[3] + "</td>";
+                dataForRow = dataItem + dataUnits + dataQty + dataDescription;
+                newRow = "<tr>" + dataForRow + "</tr>";
               }
+              _results.push($('#substitute-results').append(newRow));
             }
-            $('#substitute-results').empty();
-            $('#substitute-results').append(NonRepo + MatchingRepo);
-            $('#nonRepo').append(NonItems + NonUnits + NonQty);
-            return $('#MatchingRepo').append(MatchingItems + MatchingUnits + MatchingQty + MatchingDescription);
+            return _results;
           });
         });
       });

@@ -23,7 +23,28 @@ block afterNav
 
 			button.btn.btn-success.substitution-submit(type="submit") Translate
 	h2#substitute-results-header.jumbotron.row-fluid.page-header Substitutes
-		#substitute-results
+		
+		table.col-xs-12(border="1")
+			thead
+				tr
+					th#NonItem Vegan
+					th#NonUnits Units
+					th#NonQty Qty
+					th Notes
+
+			tbody#substitute-results
+				tr
+					td nonVegan 1, cell 1
+					td units 1, cell 2
+					td qty
+					td Notes
+
+				tr
+					td nonVegan 2, cell 1
+					td units 2, cell 2
+					td qty
+					td notes
+
 
 				//- input.form-control.col-xs-4(style="height: 24px", name="qty", data-placeholder="Quantity") 
 
