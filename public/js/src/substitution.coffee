@@ -53,17 +53,19 @@ $ ->
 				toAppend = _.flatten(pushedArray)
 
 
-				console.log("toAppend",toAppend)
+				# console.log("toAppend",toAppend)
 				# toAppend = _.zip(pushedArray)
+
+				#consolidate units
 				consolidatedUnits = (i for i in toAppend by 2)
 				consolidatedQty = _.difference(toAppend,consolidatedUnits)
-				console.log("consolidatedQty", consolidatedQty, "consolidatedUnits",consolidatedUnits)
+				# console.log("consolidatedQty", consolidatedQty, "consolidatedUnits",consolidatedUnits)
 				uniqueUnits = _.uniq(consolidatedUnits)
 				uniqueQty = _.uniq(consolidatedQty)
-				console.log("uniqueQty", uniqueQty, "uniqueUnits",uniqueUnits)
+				# console.log("uniqueQty", uniqueQty, "uniqueUnits",uniqueUnits)
 
 				for items in uniqueUnits
-					console.log("items:::", items)
+					# console.log("items:::", items)
 
 					#add new units, reset input field
 					$('#substitute-params #units').append("<option data-placeholder='units' value=#{items}>#{items}</option>")
@@ -75,18 +77,18 @@ $ ->
 					$('#substitute-params #qty').append("<option data-placeholder='units' value=#{items}>#{items}</option>")
 					$('#qty').trigger("chosen:updated");
 
-				console.log("toAppend",toAppend)
-				for item in data
+				# console.log("toAppend",toAppend)
+				# for item in data
 
 
-					console.log("asdfasdfasdfa",item)
-					if item['non-vegan-units'] or item['non-vegan-qty']
+				# 	console.log("asdfasdfasdfa",item)
+				# 	if item['non-vegan-units'] or item['non-vegan-qty']
 
 
 
-						console.log(item['non-vegan-units'])
-						uniqueUnits = _.uniq(item['non-vegan-units'])
-						console.log(uniqueUnits)
+				# 		console.log(item['non-vegan-units'])
+				# 		uniqueUnits = _.uniq(item['non-vegan-units'])
+				# 		console.log(uniqueUnits)
 						# $('#substitute-params #units').append("<option data-placeholder='units' value=#{item['non-vegan-units']}>#{item['non-vegan-units']}</option>")
 
 						# $('#substitute-params #qty').append("<option data-placeholder='qty' value=#{item['non-vegan-qty']}>#{item['non-vegan-qty']}</option>")

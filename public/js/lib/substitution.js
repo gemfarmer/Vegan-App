@@ -23,7 +23,7 @@
         socket.emit('requestparams', val);
         $('#substitute-params').show();
         return socket.on('sendparams', function(data) {
-          var ArraytoPush, QtyToPush, UnitsToPush, consolidatedQty, consolidatedUnits, i, item, items, pushedArray, toAppend, uniqueQty, uniqueUnits, _i, _j, _k, _l, _len, _len1, _len2, _len3;
+          var ArraytoPush, QtyToPush, UnitsToPush, consolidatedQty, consolidatedUnits, i, item, items, pushedArray, toAppend, uniqueQty, uniqueUnits, _i, _j, _k, _len, _len1, _len2;
           console.log("sendparms:::", data);
           $('.subs').empty();
           console.log("adfasdfasdf", data);
@@ -37,7 +37,6 @@
           }
           console.log("pushedArray", pushedArray);
           toAppend = _.flatten(pushedArray);
-          console.log("toAppend", toAppend);
           consolidatedUnits = (function() {
             var _j, _len1, _results;
             _results = [];
@@ -48,13 +47,10 @@
             return _results;
           })();
           consolidatedQty = _.difference(toAppend, consolidatedUnits);
-          console.log("consolidatedQty", consolidatedQty, "consolidatedUnits", consolidatedUnits);
           uniqueUnits = _.uniq(consolidatedUnits);
           uniqueQty = _.uniq(consolidatedQty);
-          console.log("uniqueQty", uniqueQty, "uniqueUnits", uniqueUnits);
           for (_j = 0, _len1 = uniqueUnits.length; _j < _len1; _j++) {
             items = uniqueUnits[_j];
-            console.log("items:::", items);
             $('#substitute-params #units').append("<option data-placeholder='units' value=" + items + ">" + items + "</option>");
             $('#units').trigger("chosen:updated");
           }
@@ -64,24 +60,14 @@
             $('#substitute-params #qty').append("<option data-placeholder='units' value=" + items + ">" + items + "</option>");
             $('#qty').trigger("chosen:updated");
           }
-          console.log("toAppend", toAppend);
-          for (_l = 0, _len3 = data.length; _l < _len3; _l++) {
-            item = data[_l];
-            console.log("asdfasdfasdfa", item);
-            if (item['non-vegan-units'] || item['non-vegan-qty']) {
-              console.log(item['non-vegan-units']);
-              uniqueUnits = _.uniq(item['non-vegan-units']);
-              console.log(uniqueUnits);
-            }
-          }
           return $(document).on('click', '.substitution-submit', function(e) {
-            var dataDescription, dataForRow, dataItem, dataQty, dataUnits, itemset, newArray, newRow, vegDescription, vegItems, vegQty, vegUnits, _len4, _len5, _m, _n, _results;
+            var dataDescription, dataForRow, dataItem, dataQty, dataUnits, itemset, newArray, newRow, vegDescription, vegItems, vegQty, vegUnits, _l, _len3, _len4, _m, _results;
             e.preventDefault();
             console.log("daat", data);
             $('#substitute-results').empty();
             _results = [];
-            for (_m = 0, _len4 = data.length; _m < _len4; _m++) {
-              item = data[_m];
+            for (_l = 0, _len3 = data.length; _l < _len3; _l++) {
+              item = data[_l];
               $('#NonItem').text(item['non-vegan-item']);
               $('#NonQty').text(item['non-vegan-qty']);
               $('#NonUnits').text(item['non-vegan-units']);
@@ -91,8 +77,8 @@
               vegDescription = item['substitute-description'];
               newArray = _.zip(vegItems, vegUnits, vegQty, vegDescription);
               console.log(newArray);
-              for (_n = 0, _len5 = newArray.length; _n < _len5; _n++) {
-                itemset = newArray[_n];
+              for (_m = 0, _len4 = newArray.length; _m < _len4; _m++) {
+                itemset = newArray[_m];
                 console.log("itemset", itemset);
                 dataItem = "<td>" + itemset[0] + "</td>";
                 dataUnits = "<td>" + itemset[1] + "</td>";

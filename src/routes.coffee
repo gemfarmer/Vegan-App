@@ -39,7 +39,7 @@ module.exports = (app, request, io) ->
 	app.post('/register', home.postRegister);
 	app.get('/checkExists', home.checkExists);
 	app.get('/profile', restrict, home.profile);
-	app.get('/share', yumRouter.share)
+	app.get('/share', restrict, yumRouter.share)
 	# app.get('/veganizzm', home.requestVeganizzm)
 	app.get('/yummly', yumRouter.yummly)
 	app.get('/substitution', yumRouter.substitution)

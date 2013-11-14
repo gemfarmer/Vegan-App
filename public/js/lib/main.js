@@ -16,11 +16,11 @@
         console.log(data.matches);
         matched = data.matches;
         console.log("matched::::", matched);
+        $('.querySearchSelect').empty();
         $('#recipeRepo').empty();
         for (_i = 0, _len = matched.length; _i < _len; _i++) {
           item = matched[_i];
           $('.querySearchSelect').append("<option class='querySearchOptions' value=" + item.id + ">" + item.recipeName + "</option>");
-          $('.querySearchSelect').trigger("chosen:updated");
           recipeNameDom = "<div value='" + item.id + "' class='recipeName'>" + item.recipeName + "</div>";
           recipeSource = "<div class='recipeSource'>Source: " + item.sourceDisplayName + "</div>";
           if (item.smallImageUrls[0]) {

@@ -19,6 +19,7 @@ module.exports = (io) ->
 	# take object from database. puts in a DOM-readable form
 	getSubObj = (substitutes) ->
 		substituteArray = []
+
 		for substitute in substitutes
 			# console.log("substitute",substitute)
 			substitute['non-vegan-qty']
@@ -29,6 +30,8 @@ module.exports = (io) ->
 			ratio = _.map mappedQty, (num) ->
 				return num / substitute['non-vegan-qty']
 			# console.log("ratio", ratio)
+			uniqueUnits = _.uniq(substitute['non-vegan-units'])
+			# console.log("UNIQUEUNIQUE",uniqueUnits)
 			item = {
 				nonVegan: {
 					item: substitute['non-vegan-item']
@@ -44,9 +47,19 @@ module.exports = (io) ->
 				ratio: ratio
 			}
 			substituteArray.push(item)
-			console.log("obj",item)
+			# console.log("obj",item)
+		# console.log("substituteArray", substituteArray)
+		pluckedNonVeganItems = _.pluck(substituteArray, 'nonVegan')
+		# console.log("pluckedNonVeganItems",pluckedNonVeganItems)
+		pluckedTwice = _.pluck(pluckedNonVeganItems, 'item')
+
+		uniqueItems = _.uniq(pluckedTwice)
+		# console.log("uniqueItems",uniqueItems)
+		# console.log("pluckedTwice",pluckedTwice)
+		# console.log("nonVeganItems",nonVeganItems)
 		return {
 			q: substituteArray
+			uniqueItems: uniqueItems
 		}
 		# console.log(substitutionObject)
 
@@ -71,6 +84,7 @@ module.exports = (io) ->
 			
 			paramsForClient = {}
 			if val.item
+				
 				paramsForClient['non-vegan-item'] = val.item
 			if val.units
 				paramsForClient['non-vegan-units'] = val.units

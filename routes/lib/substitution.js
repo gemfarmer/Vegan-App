@@ -24,7 +24,7 @@
       q: "sdf"
     };
     getSubObj = function(substitutes) {
-      var item, mappedQty, ratio, substitute, substituteArray, _i, _len;
+      var item, mappedQty, pluckedNonVeganItems, pluckedTwice, ratio, substitute, substituteArray, uniqueItems, uniqueUnits, _i, _len;
       substituteArray = [];
       for (_i = 0, _len = substitutes.length; _i < _len; _i++) {
         substitute = substitutes[_i];
@@ -37,6 +37,7 @@
         ratio = _.map(mappedQty, function(num) {
           return num / substitute['non-vegan-qty'];
         });
+        uniqueUnits = _.uniq(substitute['non-vegan-units']);
         item = {
           nonVegan: {
             item: substitute['non-vegan-item'],
@@ -52,10 +53,13 @@
           ratio: ratio
         };
         substituteArray.push(item);
-        console.log("obj", item);
       }
+      pluckedNonVeganItems = _.pluck(substituteArray, 'nonVegan');
+      pluckedTwice = _.pluck(pluckedNonVeganItems, 'item');
+      uniqueItems = _.uniq(pluckedTwice);
       return {
-        q: substituteArray
+        q: substituteArray,
+        uniqueItems: uniqueItems
       };
     };
     findSubstitutes = function(callback) {

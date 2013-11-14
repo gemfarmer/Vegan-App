@@ -19,7 +19,7 @@ $ ->
 			console.log("matched::::",matched)
 			
 			#empty query field
-			# $('.querySearchSelect').empty()
+			$('.querySearchSelect').empty()
 			#empty dom
 			$('#recipeRepo').empty()
 			
@@ -29,7 +29,7 @@ $ ->
 				$('.querySearchSelect').append("<option class='querySearchOptions' value=#{item.id}>#{item.recipeName}</option>")
 
 				#update chosen fields
-				$('.querySearchSelect').trigger("chosen:updated");
+				# $('.querySearchSelect').trigger("chosen:updated");
 
 				#update matched recipe area
 				recipeNameDom = "<div value='#{item.id}' class='recipeName'>#{item.recipeName}</div>"
