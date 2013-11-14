@@ -24,7 +24,16 @@ $ ->
 			$('.querySearchSelect').empty()
 			#empty dom
 			$('#recipeRepo').empty()
-			
+			for item in matched
+
+				socket.emit 'sendRecipeId', item.id
+
+			socket.on 'returnRecipeInfo', (returnedRecipe) ->
+				
+				console.log(returnedRecipe)
+			matchedRec = matched.returnedRecipe
+				# returnedRecipeParsed = querysting.parse(returnedRecipe)
+				# console.log(returnedRecipeParsed)
 			for item in matched
 				# console.log(item.recipeName)
 				# joinedRecipeItem = (item.recipeName).split(" ").join("+")
@@ -45,7 +54,13 @@ $ ->
 			
 			console.log("item::::", data)
 			$('#matchedResults').text("#{data.totalMatchCount} Matched Results")
-	
+		# $('.sourceLink').on 'click', (e) ->
+		# 	e.preventDefault()
+		# 	val = $(this).data('id')
+		# 	console.log(val)
+		# 	#send clicked recipe id to server
+		# 	socket.emit 'sendRecipeId', val
+			
 
 	$(document).on 'keyup', '.chosen-search input', (e) ->
 		e.preventDefault()

@@ -12,7 +12,7 @@
     socket.on('connect', function() {
       console.log("socket connected to yummly");
       return socket.on('yumKeyUpData', function(data) {
-        var item, matched, recipeImg, recipeNameDom, recipeSource, _i, _len;
+        var item, matched, matchedRec, recipeImg, recipeNameDom, recipeSource, _i, _j, _len, _len1;
         console.log("data::::", data);
         console.log(data.matches);
         matched = data.matches;
@@ -21,6 +21,14 @@
         $('#recipeRepo').empty();
         for (_i = 0, _len = matched.length; _i < _len; _i++) {
           item = matched[_i];
+          socket.emit('sendRecipeId', item.id);
+        }
+        socket.on('returnRecipeInfo', function(returnedRecipe) {
+          return console.log(returnedRecipe);
+        });
+        matchedRec = matched.returnedRecipe;
+        for (_j = 0, _len1 = matched.length; _j < _len1; _j++) {
+          item = matched[_j];
           $('.querySearchSelect').append("<option class='querySearchOptions' value=" + item.id + ">" + item.recipeName + "</option>");
           recipeNameDom = "<div value='" + item.id + "' class='recipeName'>" + item.recipeName + "</div>";
           recipeSource = "<div class='recipeSource'>Source: " + item.sourceDisplayName + "</div>";

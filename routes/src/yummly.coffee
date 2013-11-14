@@ -5,7 +5,7 @@ request = require 'request'
 async = require 'async'
 mongoose = require 'mongoose'
 querystring = require('querystring')
-
+_ = require 'underscore'
 
 RecipeSearch = mongoose.model('RecipeSearch', {
 	q: String
@@ -13,6 +13,8 @@ RecipeSearch = mongoose.model('RecipeSearch', {
 	allowedCourse: String
 	allowedAllergy: String
 	allowedDiet: String
+	allowedIngredient: String
+	excludedIngredient: String
 })
 module.exports = (io) ->
 	
@@ -23,6 +25,7 @@ module.exports = (io) ->
 			diet: 'diet'
 			cuisine: 'cuisine'
 			course: 'course'
+			ingredient: 'ingredient'
 		}
 		# credentials = {
 		# 	yummlyAppId : '48b32423'
@@ -32,9 +35,13 @@ module.exports = (io) ->
 		# 	yummlyAppId : '97e6abca'
 		# 	yummlyAppKey : "d484870556711f7eaa34a88431fd1c84"
 		# }
+		# credentials = {
+		# 	yummlyAppId : 'f7e932f4'
+		# 	yummlyAppKey : "ea34523729835c47af535398733dcd28"
+		# }
 		credentials = {
-			yummlyAppId : 'f7e932f4'
-			yummlyAppKey : "ea34523729835c47af535398733dcd28"
+			yummlyAppId : '362018bb'
+			yummlyAppKey : "1b0f50648976ca48b2d63c9b73784960"
 		}
 		
 		credentialKey = "_app_id=#{credentials.yummlyAppId}&_app_key=#{credentials.yummlyAppKey}"
@@ -43,17 +50,34 @@ module.exports = (io) ->
 		io.sockets.on 'connection', (socket) ->
 			console.log("SOCKET CONNECTED")
 
+			#get specific recipe id from client
+			socket.on 'sendRecipeId', (recipeId) ->
+
+				recipeUrl = "http://api.yummly.com/v1/api/recipe/#{recipeId}?#{credentialKey}"
+				console.log(recipeUrl)
+				request recipeUrl, (error, response, body) ->
+
+					console.log("body:::", body)
+					newBody = body.replace('{"attribution":{"html":"<a href=\'', '')
+					splitBody = newBody.split("'")
+					urlToSend = splitBody[0]
+					# consol.log("NEW BODY",newBody)
+					
+					socket.emit 'returnRecipeInfo', urlToSend
+
 			#get form information
 			joinedURL = ""
 			socket.on 'yumForm', (formData) ->
 				queryPrefix = {
 					allowedCourse : "&allowedCourse[]="
 					allowedAllergy : "&allowedAllergy[]="
-					allowedDiet : "&allowedDiet[]="
+					# allowedDiet : "&allowedDiet[]="
 					allowedCuisine : "&allowedCuisine[]="
+					allowedIngredient: "&allowedIngredient[]="
+					excludedIngredient: "&excludedIngredient[]="
 				}
 				parsedFormData = querystring.parse(formData)
-				# console.log("formData::::::", parsedFormData)
+				console.log("formData::::::", parsedFormData)
 
 				queryObj = {}
 				for param of parsedFormData
@@ -74,10 +98,14 @@ module.exports = (io) ->
 					urlExtras.push(queryObj.allowedCourse)
 				if queryObj.allowedAllergy != undefined
 					urlExtras.push(queryObj.allowedAllergy)
-				if queryObj.allowedDiet != undefined
-					urlExtras.push(queryObj.allowedDiet)
+				# if queryObj.allowedDiet != undefined
+				# 	urlExtras.push(queryObj.allowedDiet)
 				if queryObj.allowedCuisine != undefined
 					urlExtras.push(queryObj.allowedCuisine)
+				if queryObj.allowedIngredient != undefined
+					urlExtras.push(queryObj.allowedIngredient)
+				if queryObj.excludedIngredient != undefined
+					urlExtras.push(queryObj.excludedIngredient)
 
 				console.log "urlExtras:", urlExtras
 				joinedURL = urlExtras.join("")
@@ -90,7 +118,7 @@ module.exports = (io) ->
 				#get query info
 				console.log("keyupQuery::::::", query.q)
 
-				yummlyUpdatedUrl = "http://api.yummly.com/v1/api/recipes?#{credentialKey}&q=#{query.q}#{joinedURL}"
+				yummlyUpdatedUrl = "http://api.yummly.com/v1/api/recipes?#{credentialKey}&q=#{query.q}&allowedDiet[]=386^Vegan#{joinedURL}"
 				console.log("yummlyUpdatedUrl::::", yummlyUpdatedUrl)
 
 				#Pull Yummly API
@@ -125,6 +153,7 @@ module.exports = (io) ->
 				callback(null, yummlyObj)
 
 
+
 		#define tasks for async waterfall
 		tasks = [
 			(cb) ->
@@ -151,6 +180,19 @@ module.exports = (io) ->
 					cb(null, toRender)
 			,
 			(toRender, cb) ->
+				getMetaData searchMetaParam.ingredient, (err, data) ->
+					# console.log("allowedIngredient",data)
+					toRender.allowedIngredient = data
+					cb(null, toRender)
+			,
+			(toRender, cb) ->
+				getMetaData searchMetaParam.ingredient, (err, data) ->
+					# console.log("excludedIngredient",data)
+
+					toRender.excludedIngredient = data
+					cb(null, toRender)
+			,
+			(toRender, cb) ->
 				getRecipeData (err, data) ->
 					toRender.q = data.matches
 					cb(null, toRender)
@@ -162,6 +204,7 @@ module.exports = (io) ->
 				console.log "you have an error in your waterfall"
 			else
 				res.render 'yummly', result
-	{
+	# export yumRouter.yummly
+	return {
 		yummly: yummlyExport
 	}

@@ -3,13 +3,17 @@ extends index
 block afterNav
 	.container
 		#searchEngine.jumbotron.col-xs-12.col-sm-offset-2.col-sm-10
-			p Recipe search powered by 
+			p Vegan Recipe Search powered by 
 				a(href='http://www.yummly.com/recipes')
 					img(alt='Yummly', src='img/Yummly_logo.png', style="height: 25px;")
 					//- img(alt='Yummly', src='http://static.yummly.com/api-logo.png')
+				
 
 			
 				form#recipe-form(role="form")
+					//- .checkbox
+					//- 	label Vegan
+					//- 		input(type='checkbox') 
 					select.chzn-select.form-control(multiple="true", name="allowedCuisine", style="height: 40px;", data-placeholder="Select cuisine...")
 						for item in allowedCuisine
 							option(value='#{item.searchValue}') #{item.description}
@@ -25,9 +29,19 @@ block afterNav
 							option(value='#{item.searchValue}') #{item.shortDescription}
 				
 					br
-					select.chzn-select.form-control(multiple="true", name="allowedDiet", style="height: 40px;", data-placeholder="Select diet...")
-						for item in allowedDiet
-							option(value='#{item.searchValue}') #{item.shortDescription}
+					//- select.chzn-select.form-control(multiple="true", name="allowedDiet", style="height: 40px;", data-placeholder="Select diet...")
+					//- 	for item in allowedDiet
+					//- 		option(value='#{item.searchValue}') #{item.shortDescription}
+				
+					//- br
+					select.chzn-select.form-control(multiple="true", name="allowedIngredient", style="height: 40px;", data-placeholder="Select ingredients that you like...")
+						for item in allowedIngredient
+							option(value='#{item.searchValue}') #{item.description}
+				
+					br
+					select.chzn-select.form-control(multiple="true", name="excludedIngredient", style="height: 40px;", data-placeholder="Select ingredients to exlude...")
+						for item in excludedIngredient
+							option(value='#{item.searchValue}') #{item.description}
 				
 					br
 					select.chzn-select.querySearchSelect.form-control(name="q", style="height: 40px;", data-placeholder="Select recipe...")
@@ -51,7 +65,10 @@ block afterNav
 						else
 							img.recipeImg(src="img/default-recipe.png")
 						div.recipeName(value='#{item.id}') #{item.recipeName}
-						div.recipeSource Source: #{item.sourceDisplayName}
+						div.recipeRating(value='#{item.rating}') Rating: #{item.rating}
+
+						div.recipeSource(value='#{item.id}') Source: 
+							a.sourceLink(href='#', data-id='#{item.id}') #{item.sourceDisplayName}
 
 
 			
