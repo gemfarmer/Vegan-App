@@ -20,7 +20,15 @@ $ ->
 			console.log("formData", formData)
 
 		
-		
+		$('#altButton').on 'click', (e) ->
+			e.preventDefault()
+			$(this).addClass('hide')
+			$('#subEngine').removeClass('hide')
+
+		$(document).on 'click', '#altButton', (e) ->
+			e.preventDefault()
+			console.log("click")
+			$('#searchEngine').toggleClass('tuck')
 
 		$('#substitution-form').on 'change', (e) ->
 			e.preventDefault()

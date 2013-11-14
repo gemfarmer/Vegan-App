@@ -15,6 +15,16 @@
         formData = $(this).serialize();
         return console.log("formData", formData);
       });
+      $('#altButton').on('click', function(e) {
+        e.preventDefault();
+        $(this).addClass('hide');
+        return $('#subEngine').removeClass('hide');
+      });
+      $(document).on('click', '#altButton', function(e) {
+        e.preventDefault();
+        console.log("click");
+        return $('#searchEngine').toggleClass('tuck');
+      });
       return $('#substitution-form').on('change', function(e) {
         var val;
         e.preventDefault();

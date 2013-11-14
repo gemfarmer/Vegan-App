@@ -5,14 +5,18 @@
 #substitute-results-header{
 	text-align: center;
 	background-color: #ecf0f1;
-	float: right;
+	/*float: right;*/
 	display: inline-block;
 	/*width: 50%;*/
 	/*height: 1500px;*/
 	z-index:1;
 	position: relative;
 	/*font-size: 40px;*/
-
+	border-radius: 10px;
+	margin-top: 10px;
+}
+#substitution-form{
+	text-align: center;
 }
 
 #subEngine {
@@ -22,14 +26,25 @@
 	/*position: fixed;*/
 	background-color: none;
 	z-index: 0;
-}
+	border-radius: 10px;
 
+}
+.substitution-submit{
+	text-align: center
+}
+#altButton{
+	background-color: #18bc9c;
+	font-size: 22px;
+}
 .substitution-submit{
 	text-align: left;
 }
-
+.chzn-select{
+	text-align: left;
+}
 table{
 	font-size: 12px;
+	height: 50px;
 }
 th{
 	text-align: center;
