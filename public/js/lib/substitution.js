@@ -23,12 +23,28 @@
         socket.emit('requestparams', val);
         $('#substitute-params').show();
         return socket.on('sendparams', function(data) {
-          var item, _i, _len;
+          var QtyToPush, UnitsToPush, item, pushedArray, toAppend, uniqueUnits, _i, _j, _len, _len1;
           console.log("sendparms:::", data);
           $('.subs').empty();
+          console.log("adfasdfasdf", data);
+          pushedArray = [];
           for (_i = 0, _len = data.length; _i < _len; _i++) {
             item = data[_i];
+            UnitsToPush = item['non-vegan-units'];
+            QtyToPush = item['non-vegan-qty'];
+            pushedArray.push(UnitsToPush);
+            pushedArray.push(QtyToPush);
+          }
+          console.log("pushedArray", pushedArray);
+          toAppend = _.zip(pushedArray);
+          console.log("toAppend", toAppend);
+          for (_j = 0, _len1 = data.length; _j < _len1; _j++) {
+            item = data[_j];
+            console.log("asdfasdfasdfa", item);
             if (item['non-vegan-units'] || item['non-vegan-qty']) {
+              console.log(item['non-vegan-units']);
+              uniqueUnits = _.uniq(item['non-vegan-units']);
+              console.log(uniqueUnits);
               $('#substitute-params #units').append("<option data-placeholder='units' value=" + item['non-vegan-units'] + ">" + item['non-vegan-units'] + "</option>");
               $('#substitute-params #qty').append("<option data-placeholder='qty' value=" + item['non-vegan-qty'] + ">" + item['non-vegan-qty'] + "</option>");
               $('#units').trigger("chosen:updated");
@@ -36,13 +52,13 @@
             }
           }
           return $(document).on('click', '.substitution-submit', function(e) {
-            var dataDescription, dataForRow, dataItem, dataQty, dataUnits, itemset, newArray, newRow, vegDescription, vegItems, vegQty, vegUnits, _j, _k, _len1, _len2, _results;
+            var dataDescription, dataForRow, dataItem, dataQty, dataUnits, itemset, newArray, newRow, vegDescription, vegItems, vegQty, vegUnits, _k, _l, _len2, _len3, _results;
             e.preventDefault();
             console.log("daat", data);
             $('#substitute-results').empty();
             _results = [];
-            for (_j = 0, _len1 = data.length; _j < _len1; _j++) {
-              item = data[_j];
+            for (_k = 0, _len2 = data.length; _k < _len2; _k++) {
+              item = data[_k];
               $('#NonItem').text(item['non-vegan-item']);
               $('#NonQty').text(item['non-vegan-qty']);
               $('#NonUnits').text(item['non-vegan-units']);
@@ -52,8 +68,8 @@
               vegDescription = item['substitute-description'];
               newArray = _.zip(vegItems, vegUnits, vegQty, vegDescription);
               console.log(newArray);
-              for (_k = 0, _len2 = newArray.length; _k < _len2; _k++) {
-                itemset = newArray[_k];
+              for (_l = 0, _len3 = newArray.length; _l < _len3; _l++) {
+                itemset = newArray[_l];
                 console.log("itemset", itemset);
                 dataItem = "<td>" + itemset[0] + "</td>";
                 dataUnits = "<td>" + itemset[1] + "</td>";

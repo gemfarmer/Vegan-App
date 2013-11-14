@@ -19,6 +19,7 @@
 	/*height: 1500px;*/
 	z-index:1;
 	position: relative;
+	/*font-size: 40px;*/
 
 }
 
@@ -29,4 +30,26 @@
 	position: fixed;
 	background-color: white;
 	z-index: 0;
+}
+
+/*table{
+	font-size: 16px;
+}*/
+th{
+	text-align: center;
+	border-bottom: 2px solid #13987e;
+
+}
+tr{
+	/*border-bottom: 1px solid #13987e;*/
+
+}
+td,th{
+	border-left: 2px solid #13987e;
+}
+th:first-child, td:first-child {
+	border-left: none;
+}
+td{
+	padding: 5px;
 }

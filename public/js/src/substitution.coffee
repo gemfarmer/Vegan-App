@@ -37,9 +37,31 @@ $ ->
 				# $('#substitute-params select').empty
 				console.log("sendparms:::",data)
 				$('.subs').empty()
+				console.log("adfasdfasdf",data)
+
+				pushedArray = []
+
+				for item in data	
+
+					UnitsToPush = item['non-vegan-units']
+					QtyToPush = item['non-vegan-qty']
+					pushedArray.push(UnitsToPush)
+					pushedArray.push(QtyToPush)
+
+				console.log("pushedArray",pushedArray)
+				toAppend = _.zip(pushedArray)
+				console.log("toAppend",toAppend)
 				for item in data
 
+
+					console.log("asdfasdfasdfa",item)
 					if item['non-vegan-units'] or item['non-vegan-qty']
+
+
+
+						console.log(item['non-vegan-units'])
+						uniqueUnits = _.uniq(item['non-vegan-units'])
+						console.log(uniqueUnits)
 
 						$('#substitute-params #units').append("<option data-placeholder='units' value=#{item['non-vegan-units']}>#{item['non-vegan-units']}</option>")
 						$('#substitute-params #qty').append("<option data-placeholder='qty' value=#{item['non-vegan-qty']}>#{item['non-vegan-qty']}</option>")
@@ -86,31 +108,7 @@ $ ->
 						$('#substitute-results').append(newRow)
 
 					
-					
-					# $('#substitute-results').append(NonRepo+MatchingRepo)
-
-
-					# $('#nonRepo').append(NonItems+NonUnits+NonQty)
-					# $('#MatchingRepo').append(MatchingItems+MatchingUnits+MatchingQty+ MatchingDescription)
-
-				# $(document).on 'click', '.substitution-submit', () ->
-				# 	$('#substitute-results').append('<li class="substitute-results">Too Soon!</li>')
-						# $('.subs').trigger("chosen:updated");
-
-						# for item in data
-						# 	console.log(item['substitute-units'])
-						# 	console.log(item['substitute-qty'])
-							# for units of item['substitute-units']
-
-							# 	if units 
-							# 		$('#substitute-params units').append("<option value=#{units}>#{units}</option>")
-							# for qty of item['substitute-qty']
-								
-							# 	if qty 
-							# 		$('#substitute-params qty').append("<option value=#{qty}>#{qty}</option>")
-							# $('#substitute-params select').trigger("chosen:updated");
-
-
+		
 
 		
 		
