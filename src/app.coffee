@@ -73,8 +73,8 @@ app.configure () ->
 	app.use(express.methodOverride());
 	app.use(express.session({
 		secret: storeConf.secret,
-		maxAge: new Date(Date.now() + 3600000),
-		store: new mongoStore(storeConf.db)
+		maxAge: new Date(Date.now() + 3600000)
+		# store: new mongoStore(storeConf.db)
 	}));
 	app.use(passport.initialize());
 	app.use(passport.session());
