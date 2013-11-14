@@ -59,6 +59,7 @@ app.locals.moment = moment;
 # app config
 app.configure () ->
 	app.set('views', __dirname + '/../views');
+	app.set('port', process.env.PORT || 3000);
 	app.set('view engine', 'jade');
 	# highlights top level path
 	app.use (req, res, next) ->
@@ -94,7 +95,9 @@ app.configure 'production', () ->
 # load the router
 require(__dirname+'/routes')(app, request, io);
 
-port = config.port;
-server.listen port, () ->
-	console.log("Listening on " + port);
-	return
+# port = config.port;
+# server.listen port, () ->
+# 	console.log("Listening on " + port);
+# 	return
+server.listen app.get('port'), () ->
+	console.log("Listening on " + app.get('port'));
