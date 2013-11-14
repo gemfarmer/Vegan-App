@@ -5,6 +5,7 @@ block content
 		container 
 			div.navbar-header
 				a.navbar-brand(href='/') #{config.name}
+
 				button.navbar-toggle(type='button', data-toggle='collapse', data-target='#navbar-main')
 					span.icon-bar
 					span.icon-bar
@@ -44,21 +45,23 @@ block content
 						
 	div.container-fluid   
 		block afterNav
-			div.row-fluid
-				h1 Welcome to #{config.name}!
-			if user
-				div.row-fluid
-					h4 You should think about putting something here.
-					h5 Current User: #{user.username}
-				div.button
-					a(href='/logout') Logout
+			.container
+				div.row-fluid.jumbotron
+					h1 Welcome to #{config.name}!
+					p A tool for 
+						a(href="http://veganizzm.com/") Veganizzm.com
+					if user
+						div.row-fluid
+							h5 Current User: #{user.username}
+						div.button.btn.btn-primary
+							a(href='/logout') Logout
 
 
-			else
-				div.row-fluid
-					h4 This is an app to find and share recipes and learn about vegan substitutes with omniverous appeal
-					button#veganButton.btn.btn-inverse.btn-large Scrape Veganizzm.com
-					div#veganRepo
+					else
+						div.row-fluid
+							h4 This is an app to find and share recipes and learn about vegan substitutes with omniverous appeal
+							button#veganButton.btn.btn-inverse.btn-large Scrape Veganizzm.com
+							div#veganRepo
 
 	//- modals and other hidden things
 

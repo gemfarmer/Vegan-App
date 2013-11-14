@@ -54,6 +54,9 @@ module.exports = (io) ->
 		pluckedTwice = _.pluck(pluckedNonVeganItems, 'item')
 
 		uniqueItems = _.uniq(pluckedTwice)
+
+		
+	
 		# console.log("uniqueItems",uniqueItems)
 		# console.log("pluckedTwice",pluckedTwice)
 		# console.log("nonVeganItems",nonVeganItems)
@@ -109,34 +112,3 @@ module.exports = (io) ->
 			# console.log(findSubstitutes())
 			
 	}
-
-# substitutionObject = {
-# 	q : [
-# 		{
-# 			nonVegan: {
-# 				item: "egg"
-# 				units: "medium"
-# 				qty: 1
-# 			},
-# 			vegan: {
-# 				items: ["banana", "tofu/silken tofu", "applesauce"]
-# 				units: [null, "cup", "cup"]
-# 				qty: [.5, .25, (1/3), .25]
-# 				notes: ["stiffens things up", null, null, null]
-# 			}
-# 		},
-# 		{
-# 			nonVegan: {
-# 				item: "butter"
-# 				units: "tbsp"
-# 				qty: 1
-# 			},
-# 			vegan: {
-# 				items: ["vegetable oil", "olive oil", "cashew puree"]
-# 				units: ["tbsp", "tbsp", "tbsp"]
-# 				qty: [1, 1, 1]
-# 				notes: [null, null, null]
-# 				}
-# 		}
-# 	]
-# }	

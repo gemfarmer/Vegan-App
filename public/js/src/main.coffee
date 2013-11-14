@@ -7,6 +7,8 @@ $ ->
 	console.log 'fire jQ'
 
 
+	
+	$('#searchEngine').addClass('tuck')
 	socket.on 'connect', () ->
 		console.log("socket connected to yummly")
 

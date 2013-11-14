@@ -49,6 +49,18 @@ module.exports = (io) ->
 			# 			console.log(err)
 			# 		else
 			# 			console.log("sent to database:",data)
+			# console.log(parsedData)
+			# capitaliseFirstLetter = (string) ->
+			# 	return string.charAt(0).toUpperCase() + string.slice(1);
+			# mappedParsedData = _.map(parsedData, (num) ->
+			# 	if num instanceof Array
+			# 		capitaliseFirstLetter(num)
+
+			
+			# parsedData['non-vegan-item']
+			# parsedData['non-vegan-units']
+			# parsedData['non-vegan-qty']
+
 
 			substitute = new Substitute(parsedData)
 			substitute.save (err,data) ->

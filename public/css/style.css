@@ -3,8 +3,19 @@ body {
   padding-left: 10px;
   padding-right: 10px;
   background-image: url('../img/beets.jpg'); 
+  filter: alpha(opacity=20);
+  /*opacity: 1;*/
   /*background-image: opacity(.5);*/
-}
+/*}*/
+
+/*html {
+  background: url('../img/beets.jpg') no-repeat center center fixed; 
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+	opacity: 0.66;
+}*/
 
 .collectionDiv{
 	height: 40px;
@@ -15,10 +26,10 @@ body {
 	text-align: center;
 	background-color: #ecf0f1;
 	float: right;
-	/*display: inline-block;*/
+	display: inline-block;
 	width: 50%;
 	/*border-radius: 15px;*/
-
+	/*margin-top: -430px;*/
 }
 #searchEngine {
 	/*text-align: center;*/
@@ -59,6 +70,7 @@ body {
 }
 .jumbotron.page-header{
 	margin-top: -15px;
+	border-radius: 15px;
 	
 }
 
@@ -68,7 +80,7 @@ body {
 }
 
 .tuck {
-	transform: translateX(-430px);
+	transform: translateY(-430px);
 }
 
 .form-horizontal{

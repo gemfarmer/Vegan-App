@@ -8,6 +8,7 @@
 
   $(function() {
     console.log('fire jQ');
+    $('#searchEngine').addClass('tuck');
     socket.on('connect', function() {
       console.log("socket connected to yummly");
       return socket.on('yumKeyUpData', function(data) {
