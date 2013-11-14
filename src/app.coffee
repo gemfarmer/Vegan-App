@@ -42,7 +42,7 @@ io = socketio.listen(server);
 # connect to the database
 DB = require('./database');
 
-db = new DB.startup( process.env.MONGOHQ_URL or 'mongodb://localhost/'+config.dbname);
+db = new DB.startup process.env.MONGOHQ_URL or 'mongodb://localhost/'+config.dbname
 
 # sessions
 storeConf = {
