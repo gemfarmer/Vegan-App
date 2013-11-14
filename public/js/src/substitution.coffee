@@ -45,11 +45,36 @@ $ ->
 
 					UnitsToPush = item['non-vegan-units']
 					QtyToPush = item['non-vegan-qty']
-					pushedArray.push(UnitsToPush)
-					pushedArray.push(QtyToPush)
+					ArraytoPush = [UnitsToPush, QtyToPush]
+					pushedArray.push(ArraytoPush)
+					# pushedArray.push(QtyToPush)
 
 				console.log("pushedArray",pushedArray)
-				toAppend = _.zip(pushedArray)
+				toAppend = _.flatten(pushedArray)
+
+
+				console.log("toAppend",toAppend)
+				# toAppend = _.zip(pushedArray)
+				consolidatedUnits = (i for i in toAppend by 2)
+				consolidatedQty = _.difference(toAppend,consolidatedUnits)
+				console.log("consolidatedQty", consolidatedQty, "consolidatedUnits",consolidatedUnits)
+				uniqueUnits = _.uniq(consolidatedUnits)
+				uniqueQty = _.uniq(consolidatedQty)
+				console.log("uniqueQty", uniqueQty, "uniqueUnits",uniqueUnits)
+
+				for items in uniqueUnits
+					console.log("items:::", items)
+
+					#add new units, reset input field
+					$('#substitute-params #units').append("<option data-placeholder='units' value=#{items}>#{items}</option>")
+					$('#units').trigger("chosen:updated");
+				for items in uniqueQty
+					console.log("items:::", items)
+
+					#add new units, reset input field
+					$('#substitute-params #qty').append("<option data-placeholder='units' value=#{items}>#{items}</option>")
+					$('#qty').trigger("chosen:updated");
+
 				console.log("toAppend",toAppend)
 				for item in data
 
@@ -62,11 +87,11 @@ $ ->
 						console.log(item['non-vegan-units'])
 						uniqueUnits = _.uniq(item['non-vegan-units'])
 						console.log(uniqueUnits)
+						# $('#substitute-params #units').append("<option data-placeholder='units' value=#{item['non-vegan-units']}>#{item['non-vegan-units']}</option>")
 
-						$('#substitute-params #units').append("<option data-placeholder='units' value=#{item['non-vegan-units']}>#{item['non-vegan-units']}</option>")
-						$('#substitute-params #qty').append("<option data-placeholder='qty' value=#{item['non-vegan-qty']}>#{item['non-vegan-qty']}</option>")
-						$('#units').trigger("chosen:updated");
-						$('#qty').trigger("chosen:updated");
+						# $('#substitute-params #qty').append("<option data-placeholder='qty' value=#{item['non-vegan-qty']}>#{item['non-vegan-qty']}</option>")
+						# $('#units').trigger("chosen:updated");
+						# $('#qty').trigger("chosen:updated");
 
 				$(document).on 'click', '.substitution-submit', (e) ->
 					e.preventDefault()
