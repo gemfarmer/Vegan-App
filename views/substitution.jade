@@ -9,20 +9,20 @@ block afterNav
 			select.chzn-select.querySearchSelect.form-control(name="item", data-placeholder="Enter non-vegan item...")	
 				option.querySearchOptions(value='', data-placeholder="Non-vegan Item")
 				for item in uniqueItems
-					option.querySubOptions(value='#{item}', data-placeholder="Enter non-vegan item...") #{item}
+					option.querySubOptions.col-xs-12.col-sm-offset-2.col-sm-8(value='#{item}', style="width: 100%;", data-placeholder="Enter non-vegan item...") #{item}
 			div#substitute-params
-				select.subs.chzn-select.form-control#units(name="units", style="height: 24px;", data-placeholder="Units...")
+				select.subs.chzn-select.form-control#units.col-xs-12.col-sm-offset-2.col-sm-8(name="units", style="height: 24px;", data-placeholder="Units...")
 					option(value='', data-placeholder="units")
 					for item in q
 						option.col-xs-6(value='#{item.nonVegan.units}') #{item.nonVegan.units}
-				select.subs.chzn-select.form-control#qty(name="qty", style="height: 24px;", data-placeholder="Quanity...")
+				select.subs.chzn-select.form-control#qty.col-xs-12.col-sm-offset-2.col-sm-8(name="qty", style="height: 24px;", data-placeholder="Quanity...")
 					option(value='', data-placeholder="qty")
 					for item in q
 						option.col-xs-6(value='#{item.nonVegan.qty}') #{item.nonVegan.qty}
 
 			br
 			button.btn.btn-success.substitution-submit(type="submit") Translate
-	#altButton.btn.btn-large.btn-success.col-xs-12.col-sm-offset-2.col-sm-8 Looking for a vegan alternative?
+	#altButton.btn.btn-large.btn-success.col-xs-12.col-sm-offset-3.col-sm-6 Looking for a vegan alternative?
 
 	#substitute-results-header.jumbotron.row-fluid.page-header.col-xs-12.col-sm-offset-2.col-sm-8 Substitute Conversion Table
 		

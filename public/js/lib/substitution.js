@@ -18,12 +18,7 @@
       $('#altButton').on('click', function(e) {
         e.preventDefault();
         $(this).addClass('hide');
-        return $('#subEngine').removeClass('hide');
-      });
-      $(document).on('click', '#altButton', function(e) {
-        e.preventDefault();
-        console.log("click");
-        return $('#searchEngine').toggleClass('tuck');
+        return $('#subEngine').css("margin-top", "0");
       });
       return $('#substitution-form').on('change', function(e) {
         var val;

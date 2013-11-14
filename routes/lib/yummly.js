@@ -38,8 +38,8 @@
         ingredient: 'ingredient'
       };
       credentials = {
-        yummlyAppId: '362018bb',
-        yummlyAppKey: "1b0f50648976ca48b2d63c9b73784960"
+        yummlyAppId: '74f62b28',
+        yummlyAppKey: "75d0c10b8bfdc42bf4f9bbed0c4f44c9"
       };
       credentialKey = "_app_id=" + credentials.yummlyAppId + "&_app_key=" + credentials.yummlyAppKey;
       io.sockets.on('connection', function(socket) {

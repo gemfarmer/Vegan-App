@@ -39,9 +39,13 @@ module.exports = (io) ->
 		# 	yummlyAppId : 'f7e932f4'
 		# 	yummlyAppKey : "ea34523729835c47af535398733dcd28"
 		# }
+		# credentials = {
+		# 	yummlyAppId : '362018bb'
+		# 	yummlyAppKey : "1b0f50648976ca48b2d63c9b73784960"
+		# }
 		credentials = {
-			yummlyAppId : '362018bb'
-			yummlyAppKey : "1b0f50648976ca48b2d63c9b73784960"
+			yummlyAppId : '74f62b28'
+			yummlyAppKey : "75d0c10b8bfdc42bf4f9bbed0c4f44c9"
 		}
 		
 		credentialKey = "_app_id=#{credentials.yummlyAppId}&_app_key=#{credentials.yummlyAppKey}"

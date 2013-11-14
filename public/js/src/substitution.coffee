@@ -23,12 +23,10 @@ $ ->
 		$('#altButton').on 'click', (e) ->
 			e.preventDefault()
 			$(this).addClass('hide')
-			$('#subEngine').removeClass('hide')
+			# $('#subEngine').removeClass('hide')
+			# $('#subEngine').addClass('tuck')
+			$('#subEngine').css("margin-top", "0")
 
-		$(document).on 'click', '#altButton', (e) ->
-			e.preventDefault()
-			console.log("click")
-			$('#searchEngine').toggleClass('tuck')
 
 		$('#substitution-form').on 'change', (e) ->
 			e.preventDefault()

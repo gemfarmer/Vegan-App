@@ -27,6 +27,7 @@
 	background-color: none;
 	z-index: 0;
 	border-radius: 10px;
+	margin-top: -530px;
 
 }
 .substitution-submit{
@@ -63,4 +64,8 @@ th:first-child, td:first-child {
 }
 td{
 	padding: 5px;
+}
+
+.tuck {
+	transform: translateX(430px);
 }
