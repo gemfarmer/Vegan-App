@@ -139,6 +139,10 @@ $ ->
 							dataForRow = dataItem+dataUnits+dataQty+dataDescription
 							newRow = "<tr>#{dataForRow}</tr>"						
 						$('#substitute-results').append(newRow)
+					$('#substitute-results-header').removeClass('hide')
+					# $('#subEngine').addClass('hide')
+					# $('#altButton').removeClass('hide').text("Another item to translate?")
+
 
 					
 		

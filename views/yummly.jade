@@ -2,9 +2,9 @@ extends index
 
 block afterNav
 	.container
-		#searchEngine.jumbotron.col-xs-12.col-sm-offset-2.col-sm-10
+		#searchEngine.jumbotron.pull-left
 			p Vegan Recipe Search powered by 
-				a(href='http://www.yummly.com/recipes')
+				a#yummlyicon(href='http://www.yummly.com/recipes')
 					img(alt='Yummly', src='img/Yummly_logo.png', style="height: 25px;")
 					//- img(alt='Yummly', src='http://static.yummly.com/api-logo.png')
 				
@@ -50,10 +50,10 @@ block afterNav
 							for item in q
 								option.querySearchOptions(value='#{item.id}', style="height: 29px;") #{item.recipeName}	
 					br
-				button.submit-btn.btn.btn-success(type="submit") Submit Data
+				//- button.submit-btn.btn.btn-success(type="submit") Submit Data
 
 	.container
-		#recipeContainer.jumbotron.col-xs-12.col-sm-offset-2.col-sm-10
+		#recipeContainer.pull-right
 			h2#matchedTitle Matched Recipes
 			hr
 			h4#matchedResults 10  Results
@@ -73,7 +73,7 @@ block afterNav
 
 			
 			
-	button.btn.btn-primary.btn-lg(data-toggle="modal", data-target="#myModal") TArget
+	//- button.btn.btn-primary.btn-lg(data-toggle="modal", data-target="#myModal") TArget
 block modals
 
 	#myModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')

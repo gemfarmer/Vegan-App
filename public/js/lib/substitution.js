@@ -66,11 +66,10 @@
             $('#qty').trigger("chosen:updated");
           }
           return $(document).on('click', '.substitution-submit', function(e) {
-            var dataDescription, dataForRow, dataItem, dataQty, dataUnits, itemset, newArray, newRow, vegDescription, vegItems, vegQty, vegUnits, _l, _len3, _len4, _m, _results;
+            var dataDescription, dataForRow, dataItem, dataQty, dataUnits, itemset, newArray, newRow, vegDescription, vegItems, vegQty, vegUnits, _l, _len3, _len4, _m;
             e.preventDefault();
             console.log("daat", data);
             $('#substitute-results').empty();
-            _results = [];
             for (_l = 0, _len3 = data.length; _l < _len3; _l++) {
               item = data[_l];
               $('#NonItem').text(item['non-vegan-item']);
@@ -92,9 +91,9 @@
                 dataForRow = dataItem + dataUnits + dataQty + dataDescription;
                 newRow = "<tr>" + dataForRow + "</tr>";
               }
-              _results.push($('#substitute-results').append(newRow));
+              $('#substitute-results').append(newRow);
             }
-            return _results;
+            return $('#substitute-results-header').removeClass('hide');
           });
         });
       });

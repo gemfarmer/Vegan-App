@@ -4,6 +4,7 @@ body {
   padding-right: 10px;
   background-image: url('../img/beets.jpg'); 
   filter: alpha(opacity=20);
+}
   /*opacity: 1;*/
   /*background-image: opacity(.5);*/
 /*}*/
@@ -30,21 +31,23 @@ body {
 	width: 50%;
 	/*border-radius: 15px;*/
 	/*margin-top: -430px;*/
+	border-radius: 5px;
 }
 #searchEngine {
 	/*text-align: center;*/
 	display: inline-block;
-	width: 50%;
+	width: 40%;
 	position: fixed;
 	background-color: none;
 	opacity: 1;
 }
 
 #recipeRepo {
-	list-style-type: none;
+	list-style: none;
 	text-align: left;
 	margin-left: 0;
 	padding-left: 5px;
+
 }
 .matchedRecipe{
 	/*background-color: #1abc9c;*/
@@ -52,12 +55,13 @@ body {
 	height: 100px;
 	padding: 2px;
 	margin-left: 0;
+
 }
 .recipeImg{
 	float: left;
 	height: 80px;
 	padding-right: 5px;
-	list-style-type: none;
+	
 
 }
 #matchedTitle {
