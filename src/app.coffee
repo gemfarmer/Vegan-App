@@ -2,7 +2,6 @@
 express = require('express');
 home = require('./../routes/lib/home');
 mongoose = require('mongoose');
-mongo = require('mongodb');
 passport = require('./authentication');
 mongoStore = require('connect-mongo')(express);
 moment = require('moment');
@@ -46,7 +45,7 @@ db = new DB.startup process.env.MONGOHQ_URL or 'mongodb://localhost/'+config.dbn
 
 # sessions
 storeConf = {
-	db: {db: config.dbname,host: 'localhost'},
+	db: {db: config.dbname,host: process.env.MONGOHQ_URL or 'mongodb://localhost/'+config.dbname},
 	secret: config.sessionSecret
 };
 
